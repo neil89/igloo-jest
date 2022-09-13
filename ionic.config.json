@@ -1,0 +1,8 @@
+{
+  "name": "igloo_jest",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "edc7087b"
+}
