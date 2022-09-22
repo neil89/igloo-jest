@@ -7,6 +7,7 @@ import { FoodStuffExpirationType, FoodStuffGroup, FoodStuffUnitsOfMeasure } from
 import { IonicModule } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { FridgeService } from './fridge.service';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 
 const pipes = [
@@ -23,6 +24,7 @@ const pipes = [
   imports: [
     IonicModule.forRoot(),
     SharedModule,
+    AngularFirestoreModule,
     FridgeRoutingModule
   ],
   providers: [

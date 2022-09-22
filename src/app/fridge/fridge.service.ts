@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 //import { environment } from 'src/environments/environment';
 //import * as firebase from 'firebase/app';
@@ -22,9 +22,10 @@ export class FridgeService {
   ) { }
 
   getProductsStuff() {
-    return this.db
-      .collection<FoodStuff>('FoodStuff')
-      .valueChanges({ idField: 'id' });
+    // return this.db
+    //   .collection<FoodStuff>('FoodStuff')
+    //   .valueChanges({ idField: 'id' });
+    return of([]);
   }
 
   getProductStuffImages(keyword: string): Observable<any> {

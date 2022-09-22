@@ -1,10 +1,10 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { FoodStuffExpirationType, FoodStuffGroup, FoodStuffUnitsOfMeasure } from '../pipes/foodStuff.pipe';
 
 import { FridgeComponent } from './fridge.component';
-import { FridgeService } from './fridge.service';
 
 describe('FridgeComponent', () => {
   let component: FridgeComponent;
@@ -20,10 +20,8 @@ describe('FridgeComponent', () => {
       ],
       imports: [
         IonicModule.forRoot(),
-        RouterModule.forRoot([])
-      ],
-      providers: [
-        FridgeService
+        RouterModule.forRoot([]),
+        HttpClientTestingModule
       ]
     }).compileComponents();
   });

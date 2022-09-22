@@ -30,8 +30,10 @@
     "@ionic/angular": "^6.1.9",
     "@ngrx/effects": "^14.3.1",
     "@ngrx/store": "^14.3.1",
+    "@types/jest": "^28.1.1",
     "firebase": "^9.10.0",
     "ionicons": "^6.0.3",
+    "jest": "^28.1.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
@@ -48,7 +50,7 @@
     "@angular/language-service": "^14.0.0",
     "@capacitor/cli": "4.2.0",
     "@ionic/angular-toolkit": "^6.0.0",
-    "@types/jest": "^29.0.3",
+    "@ngrx/eslint-plugin": "^14.3.1",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "5.3.0",
     "@typescript-eslint/parser": "5.3.0",
@@ -56,12 +58,10 @@
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsdoc": "30.7.6",
     "eslint-plugin-prefer-arrow": "1.2.2",
-    "jest": "^29.0.3",
     "jest-preset-angular": "^12.2.2",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
-    "typescript": "~4.7.3",
-    "@ngrx/eslint-plugin": "^14.3.1"
+    "typescript": "~4.7.3"
   },
   "jest": {
     "preset": "jest-preset-angular",
@@ -72,15 +72,13 @@
       "<rootDir>/node_modules/",
       "<rootDir>/dist/"
     ],
-    "transformIgnorePatterns": [
-      "node_modules/(?!@angular|@firebase|firebase|@ngrx)"
-    ],
     "globals": {
       "ts-jest": {
-        "tsConfig": "<rootDir>/tsconfig.spec.json",
+        "tsconfig": "<rootDir>/tsconfig.spec.json",
         "stringifyContentPathRegex": "\\.html$"
       }
-    }
+    },
+    "globalSetup": "jest-preset-angular/global-setup"
   },
   "description": "An Ionic project"
 }
