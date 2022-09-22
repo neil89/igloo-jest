@@ -72,6 +72,9 @@
       "<rootDir>/node_modules/",
       "<rootDir>/dist/"
     ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!@angular|@firebase|firebase|@ngrx)"
+    ],
     "globals": {
       "ts-jest": {
         "tsConfig": "<rootDir>/tsconfig.spec.json",

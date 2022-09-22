@@ -6,7 +6,7 @@ import { FoodStuffExpirationType, FoodStuffGroup, FoodStuffUnitsOfMeasure } from
 
 import { IonicModule } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
-import { FridgeService } from './fridge.service-bkp';
+import { FridgeService } from './fridge.service';
 
 
 const pipes = [
@@ -27,7 +27,7 @@ const pipes = [
   ],
   providers: [
     HttpClientModule,
-    //FridgeService
+    FridgeService
   ]
 })
 export class FridgeModule { }

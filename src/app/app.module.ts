@@ -25,9 +25,6 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     IonicModule.forRoot(),
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireAuthModule
   ],
   providers: [
     { provide: RouteReuseStrategy,useClass: IonicRouteStrategy }
