@@ -4,25 +4,44 @@ module.exports = (path, options) => {
     ...options,
     // Use packageFilter to process parsed `package.json` before the resolution (see https://www.npmjs.com/package/resolve#resolveid-opts-cb)
     packageFilter: (pkg) => {
+      // const pkgNamesToTarget = new Set([
+      //   'rxjs',
+      //   '@firebase/auth',
+      //   '@firebase/storage',
+      //   '@firebase/functions',
+      //   '@firebase/database',
+      //   '@firebase/auth-compat',
+      //   '@firebase/database-compat',
+      //   '@firebase/app',
+      //   '@firebase/app-compat',
+      //   '@firebase/firestore',
+      //   '@firebase/firestore-compat',
+      //   '@firebase/messaging',
+      //   '@firebase/util',
+      //   'firebase',
+      // ]);
       const pkgNamesToTarget = new Set([
+        'uuid',
         'rxjs',
+        '@dereekb/firebase-server',
+        '@dereekb/firebase',
+        '@dereekb/util',
         '@firebase/auth',
         '@firebase/storage',
         '@firebase/functions',
         '@firebase/database',
         '@firebase/auth-compat',
         '@firebase/database-compat',
-        '@firebase/app',
         '@firebase/app-compat',
         '@firebase/firestore',
         '@firebase/firestore-compat',
         '@firebase/messaging',
         '@firebase/util',
-        'firebase',
+        'firebase'
       ]);
 
       if (pkgNamesToTarget.has(pkg.name)) {
-        // console.log('>>>', pkg.name)
+        console.log('>>>', pkg.name)
         delete pkg['exports'];
         delete pkg['module'];
       }

@@ -1,3 +1,5 @@
+const esModules = ['@firebase', 'firebase', '@ngrx'].join('|');
+
 module.exports = {
   globals: {
     'ts-jest': {
@@ -7,6 +9,14 @@ module.exports = {
   },
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['./setup.jest.ts'],
+  moduleNameMapper: {
+    'firebase/compat': '<rootDir>/node_modules/firebase/compat/dist/index.node.cjs',
+    'firebase/app': '<rootDir>/node_modules/firebase/firebase-app.js',
+    '@firebase/util': '<rootDir>/node_modules/@firebase/util/dist/index.node.cjs.js'
+  },
+  transformIgnorePatterns: [
+    `/node_modules/(?!(${esModules}|.*.mjs$))`,
+  ],
   testPathIgnorePatterns: [
     '/node_modules/'
   ],
