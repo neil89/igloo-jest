@@ -1,0 +1,46 @@
+<h1>Mi frigorífico</h1>
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Mi frigorífico</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <ion-card *ngFor="let item of items">
+      <ion-card-header>
+        <ion-chip color="tertiary" [outline]="true">
+          <ion-icon name="scan-outline"></ion-icon>
+          <ion-label> {{item.group | foodStuffGroup}}</ion-label>
+        </ion-chip>
+        <ion-card-title>
+          <h2>{{item.name}}</h2>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Cantidad: {{item.units | foodStuffUnitsOfMeasure : item.amount }}</p>
+        <p class="paragraph-vertical-align-icon">
+          <ion-icon name="time-outline"></ion-icon>
+          <span class="small-space-horizontal-separation">Duración: </span>
+          <span [ngClass]="{
+            'expirationTypeGreen': item.expirationType === 'Imperisable',
+            'expirationTypeLime': item.expirationType === 'Long-lasting',
+            'expirationTypeYellow': item.expirationType === 'Short-lasting',
+            'expirationTypeRed': item.expirationType === 'Day-lasting'
+          }">
+            {{item.expirationType | foodStuffExpirationType}}
+          </span>
+        </p>
+      </ion-card-content>
+    </ion-card>
+
+    <div>
+      <img *ngFor="let imgSrc of imgSrc" [src]="imgSrc">
+    </div>
+
+  </div>
+</ion-content>
