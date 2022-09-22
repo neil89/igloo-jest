@@ -1,13 +1,18 @@
-const esModules = ['@angular', 'firestore', '@firebase', 'firebase', '@ngrx'].join('|');
-
 module.exports = {
   globals: {
     'ts-jest': {
-      allowSyntheticDefaultImports: true,
-    },
+      'tsconfig': 'tsconfig.spec.json',
+      'stringifyContentPathRegex': '\\.html$',
+    }
   },
-  transformIgnorePatterns: [`<rootDir>/node_modules/(?!${esModules})`],
+  preset: 'jest-preset-angular',
+  setupFilesAfterEnv: ['./setup.jest.ts'],
+  testPathIgnorePatterns: [
+    '/node_modules/'
+  ],
   transform: {
-    '^.+\\.js$': 'babel-jest',
+    '^.+\\.tsx$': 'ts-jest',
+    '^.+\\.(ts|js|html)$': 'jest-preset-angular'
   },
+  resolver: '<rootDir>/src/jest.resolver.js'
 };
