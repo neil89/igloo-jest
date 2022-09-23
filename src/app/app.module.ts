@@ -14,6 +14,12 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 
+const angularFire = [
+  AngularFireModule.initializeApp(environment.firebase),
+  AngularFirestoreModule.enablePersistence(),
+  AngularFireAuthModule
+];
+
 @NgModule({
   declarations: [
     AppComponent
@@ -25,6 +31,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     IonicModule.forRoot(),
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
+    ...angularFire
   ],
   providers: [
     { provide: RouteReuseStrategy,useClass: IonicRouteStrategy }

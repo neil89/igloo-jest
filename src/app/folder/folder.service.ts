@@ -10,7 +10,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class FolderService {
 
   constructor(
-    private http: HttpClient,
+    private http: HttpClient
   ) {}
 
   getProductStuffImages(keyword: string): Observable<any> {

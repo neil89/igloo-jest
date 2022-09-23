@@ -18,11 +18,11 @@ export class FridgeService {
 
   constructor(
     private http: HttpClient,
-    private db: AngularFirestore
+    private firestore: AngularFirestore
   ) { }
 
   getProductsStuff() {
-    return this.db
+    return this.firestore
       .collection<FoodStuff>('FoodStuff')
       .valueChanges({ idField: 'id' });
   }

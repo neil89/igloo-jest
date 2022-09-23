@@ -23,7 +23,7 @@ const pipes = [
   imports: [
     IonicModule.forRoot(),
     SharedModule,
-    FridgeRoutingModule
+    FridgeRoutingModule,
   ],
   providers: [
     HttpClientModule,

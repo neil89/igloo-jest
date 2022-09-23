@@ -1,10 +1,19 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { BehaviorSubject } from 'rxjs';
 import { FoodStuffExpirationType, FoodStuffGroup, FoodStuffUnitsOfMeasure } from '../pipes/foodStuff.pipe';
 
 import { FridgeComponent } from './fridge.component';
-import { FridgeService } from './fridge.service';
+
+const firestoreStub = {
+  collection: (name: string) => ({
+    valueChanges: () => new BehaviorSubject({ foo: 'bar' }),
+    set: (_d: any) => new Promise<void>((resolve, _reject) => resolve()),
+  }),
+};
 
 describe('FridgeComponent', () => {
   let component: FridgeComponent;
@@ -20,10 +29,11 @@ describe('FridgeComponent', () => {
       ],
       imports: [
         IonicModule.forRoot(),
-        RouterModule.forRoot([])
+        RouterModule.forRoot([]),
+        HttpClientTestingModule,
       ],
       providers: [
-        FridgeService
+        { provide: AngularFirestore, useValue: firestoreStub },
       ]
     }).compileComponents();
   });
