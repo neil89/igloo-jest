@@ -147,7 +147,8 @@
   },
   "cli": {
     "schematicCollections": [
-      "@ionic/angular-toolkit"
+      "@schematics/angular"
+      //"@ionic/angular-toolkit",
     ],
     "analytics": "15bd67ea-8096-4c4f-b2f4-09e724abd5f0"
   },
@@ -157,6 +158,12 @@
     },
     "@ionic/angular-toolkit:page": {
       "styleext": "scss"
+    },
+    "@schematics/angular:component": {
+      "style": "scss"
+    },
+    "@schematics/angular:application": {
+      "strict": true
     }
   }
 }

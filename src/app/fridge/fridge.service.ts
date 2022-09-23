@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-//import { environment } from 'src/environments/environment';
-//import * as firebase from 'firebase/app';
+import { environment } from 'src/environments/environment';
+import * as firebase from 'firebase/app';
 import { FoodStuff } from '../models/food.model';
 
 
@@ -40,7 +40,7 @@ export class FridgeService {
   }
 
   private getUnsplashURLWithClientId(): string {
-    //return `${unsplashSearchPhotosAPI}?client_id=${environment.unsplashAccess}`;
+    return `${unsplashSearchPhotosAPI}?client_id=${environment.unsplashAccess}`;
     return '';
   }
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FridgeComponent } from './fridge.component';
+import { FridgeComponent } from './fridge/fridge.component';
 
 
 const routes: Routes = [

@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
-import { FoodStuffExpirationType, FoodStuffGroup, FoodStuffUnitsOfMeasure } from '../pipes/foodStuff.pipe';
+import { FoodStuffExpirationType, FoodStuffGroup, FoodStuffUnitsOfMeasure } from '../../pipes/foodStuff.pipe';
 
 import { FridgeComponent } from './fridge.component';
 
