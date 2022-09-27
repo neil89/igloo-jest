@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { IonModal } from '@ionic/angular';
+import { Subject } from 'rxjs';
+import { first, takeUntil } from 'rxjs/operators';
 import { FoodStuff } from '../../models/food.model';
 import { FridgeService } from '../fridge.service';
 
@@ -8,12 +11,15 @@ import { FridgeService } from '../fridge.service';
   templateUrl: './fridge.component.html',
   styleUrls: ['./fridge.component.scss'],
 })
-export class FridgeComponent implements OnInit {
+
+export class FridgeComponent implements OnInit, OnDestroy {
+
+  @ViewChild(IonModal) public modal: IonModal;
 
   public items: FoodStuff[] = [];
-  public class = '';
-
   public imgSrc: string[] = [];
+
+  private readonly clearSubscriptions$: Subject<void> = new Subject();
 
   constructor(
     private fridgeService: FridgeService
@@ -21,6 +27,16 @@ export class FridgeComponent implements OnInit {
 
   public ngOnInit(): void {
     this.getItems();
+  }
+
+  public ngOnDestroy(): void {
+    this.clearSubscriptions$.next();
+    this.clearSubscriptions$.complete();
+  }
+
+
+  public closeModal(ev) {
+    this.modal.dismiss(null, 'cancel');
   }
 
   private getItems() {
@@ -42,18 +58,22 @@ export class FridgeComponent implements OnInit {
     //   expirationType: 'Long-lasting'
     // };
 
-    this.fridgeService.getProductsStuff().subscribe( food => {
-      this.items.push( {
-        id: food[0].id,
-        amount: food[0].amount,
-        units: food[0].units,
-        name: food[0].name,
-        group: food[0].group,
-        expirationType: food[0].expirationType
-      } as FoodStuff );
-
-      // const v1 = f === peppers;
-      // const v2 = Object.entries(f).map(x => x[0]).toString() === Object.entries(peppers).map(x => x[0]).toString();
+    this.fridgeService.getProductsStuff()
+      .pipe(takeUntil(this.clearSubscriptions$))
+      .subscribe( food => {
+        this.items = [];
+        if( food?.length > 0 ) {
+          food.forEach( (f) => {
+            this.items.push( {
+              id: f.id,
+              amount: f.amount,
+              units: f.units,
+              name: f.name,
+              group: f.group,
+              expirationType: f.expirationType
+            } as FoodStuff );
+          });
+        }
     });
 
 

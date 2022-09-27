@@ -1,6 +1,77 @@
+<ion-card
+  [id]="item.id"
+  [class.active]="isOpenEditFoodStuff"
+  (click)="setActive()"
+>
+  <ion-card-content>
+    <img src="/assets/images/no-food-stuff-placeholder.png">
+    <div class="food-stuff-group-container">
+      <img [src]="'assets/icon/food-stuff-groups/'+item.group.toLowerCase()+'_placeholder.png'"/>
+    </div>
+    <main>
+      <ion-card-title>
+        <h1>{{item.name}}</h1>
+      </ion-card-title>
+      <div>
+        <span class="amount">
+          x {{item.units | foodStuffUnitsOfMeasure : item.amount }}
+        </span>
 
+        <ion-popover
+          [isOpen]="isOpenEditFoodStuff"
+          (didDismiss)="unsetActive()"
+          [trigger]="item.id"
+          size="cover"
+          side="bottom"
+          alignment="center"
+        >
+          <ng-template>
+            <ion-content class="panel-edit-food-stuff">
+              <ion-button
+                shape="round"
+                size="small"
+                color="primary"
+              >
+                <ion-icon slot="icon-only" name="resize-outline"></ion-icon>
+              </ion-button>
+              <ion-button
+                shape="round"
+                size="small"
+                color="secondary"
+              >
+                <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+              </ion-button>
+              <ion-button
+                shape="round"
+                size="small"
+                color="danger"
+              >
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-button>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+      </div>
 
-<ion-card>
+      <!-- <ion-icon slot="icon-only" name="camera-outline"></ion-icon> -->
+
+      <!-- <ion-fab class="edit">
+        <ion-fab-button>
+          <ion-icon name="settings"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="start">
+          <ion-fab-button>
+            <ion-icon name="logo-vimeo"></ion-icon>
+          </ion-fab-button>
+          <ion-fab-button>
+            <ion-icon name="logo-youtube"></ion-icon>
+          </ion-fab-button>
+        </ion-fab-list>
+      </ion-fab> -->
+    </main>
+  </ion-card-content>
+
+<!--
   <ion-card-header>
     <ion-chip color="tertiary" [outline]="true">
       <ion-icon name="scan-outline"></ion-icon>
@@ -24,7 +95,7 @@
         {{item.expirationType | foodStuffExpirationType}}
       </span>
     </p>
-  </ion-card-content>
+  </ion-card-content> -->
 </ion-card>
 
 <!-- <div>

@@ -18,27 +18,12 @@
   align-items: center;
   display: flex;
   flex-flow: row wrap;
-  justify-items: start;
+  justify-content: start;
 
-  ion-card {
-    border-right: solid 2px var(--ion-color-secondary);
-    min-width: 200px;
-    width: 25%;
-
-    h2 {
-      display: block;
-      margin: 0;
-      padding: 5px 0;
-    }
-
-    ion-chip {
-      margin: 0;
-    }
-
-    img {
-      width: 80%;
-      margin: 5px 10%;
-    }
+  app-food-stuff-card {
+    height: 110px;
+    margin: 5px 2.5%;
+    width: 30%;
   }
 }
 

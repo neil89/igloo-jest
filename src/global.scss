@@ -24,3 +24,41 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.ion-color-quaternary {
+  --ion-color-base: var(--ion-color-quaternary, #FFB703) !important;
+  --ion-color-base-rgb: var(--ion-color-quaternary-rgb, 255,183,3) !important;
+  --ion-color-contrast: var(--ion-color-quaternary-contrast, #000) !important;
+  --ion-color-contrast-rgb: var(--ion-color-quaternary-contrast-rgb, 0, 0, 0) !important;
+  --ion-color-shade: var(--ion-color-quaternary-shade, #e0a103) !important;
+  --ion-color-tint: var(--ion-color-quaternary-tint, #ffbe1c) !important;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .ion-color-quaternary {
+    --ion-color-base: var(--ion-color-quaternary, #CC9200) !important;
+    --ion-color-base-rgb: var(--ion-color-quaternary-rgb, 204,146,0) !important;
+    --ion-color-contrast: var(--ion-color-quaternary-contrast, #000) !important;
+    --ion-color-contrast-rgb: var(--ion-color-quaternary-contrast-rgb, 0, 0, 0) !important;
+    --ion-color-shade: var(--ion-color-quaternary-shade, #b48000) !important;
+    --ion-color-tint: var(--ion-color-quaternary-tint, #d19d1a) !important;
+  }
+}
+
+
+/* Utilidades a refactorizar */
+
+.paragraph-vertical-align-icon {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+
+  ion-icon {
+    margin-right: 0.25rem;
+  }
+}
+
+.small-space-horizontal-separation {
+  margin-right: 0.25rem;
+}

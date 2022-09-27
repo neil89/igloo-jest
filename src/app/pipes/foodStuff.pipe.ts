@@ -33,7 +33,7 @@ export class FoodStuffGroup implements PipeTransform {
       case 'Bread':
         return 'Pan y cereales';
       case 'Dairy':
-        return 'Leche, quesos y yogures';
+        return 'Huevos, lácteos y derivados';
       case 'Meat':
         return 'Carne y embutidos';
       case 'Fish':
@@ -46,8 +46,8 @@ export class FoodStuffGroup implements PipeTransform {
         return 'Picoteo y chuches';
       case 'Cleaning':
         return 'Limpieza y aseo';
-      case 'Animals':
-        return 'Animales';
+      case 'Pets':
+        return 'Mascotas';
     }
   }
 }

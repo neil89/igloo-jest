@@ -25,7 +25,7 @@ export type FoodGroup =
   'Vegetarian' |
   'Snacks' |
   'Cleaning' |
-  'Animals';
+  'Pets';
 
 export type FoodExpirationType =
   'Imperisable' |
