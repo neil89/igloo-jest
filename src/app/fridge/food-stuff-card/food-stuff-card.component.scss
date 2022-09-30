@@ -22,35 +22,31 @@ ion-card {
     display: flex;
     flex-flow: row nowrap;
     justify-content: left;
-
-    &.card-content-md {
-      padding-inline-start: 14px;
-    }
+    padding: var(--padding-food-stuff-card);
 
     & > img {
-      height: 70px;
-      min-width: 70px;
-      width: 70px;
-      margin-right: 1rem;
+      height: var(--food-stuff-image);
+      width: var(--food-stuff-image);
+      margin-right: var(--food-stuff-image-margin);
     }
 
     & > div.food-stuff-group-container {
       position: absolute;
-      border: solid 2.5px var(--ion-color-tertiary);
+      border: solid var(--ion-color-tertiary) var(--food-stuff-group-border);
       border-radius: 50%;
-      width: 35px;
-      height: 35px;
+      width: var(--food-stuff-group-container);
+      height: var(--food-stuff-group-container);
       display: flex;
       align-items: center;
       justify-content: center;
       background-color: white;
-      left: 60px;
+      left: var(--food-stuff-group-margin);
       bottom: 10px;
       overflow: clip;
 
       & > img {
-        width: 25px;
-        height: 25px;
+        width: var(--food-stuff-group-icon);
+        height: var(--food-stuff-group-icon);
       }
     }
 
@@ -60,12 +56,16 @@ ion-card {
       width: 100%;
 
       & > ion-card-title {
-        height: 50px;
+        height: calc(var(--title-text-size) * 2);
 
         & > h1 {
-          height: 48px;
+          font-size: var(--title-text-size);
           line-height: 1;
         }
+      }
+
+      .amount {
+        font-size: var(--amount-text-size);
       }
 
       & > div {
@@ -87,27 +87,94 @@ ion-card {
 ion-content.panel-edit-food-stuff {
 
   & .button-small {
+    padding-top: 3px;
+    padding-bottom: 3px;
     --padding-start: 0.5em;
     --padding-end: 0.5em;
   }
 
    & > ion-button {
-    height: 35px;
+    height: 41px;
     width: 35px;
     margin: 0 calc(16.6% - 17.5px);
+  }
+}
 
-    //margin: 0 15%;
-//     --padding-start: 2px;
-//     --padding-end: 2px;
-//     height: 25px;
-//     width: 25px;
 
-//     &:first {
-//       margin-right: 10px;
-//     }
+// XS //
+@media only screen and (max-width: 489px) {
+  :host {
+    --padding-food-stuff-card: 8px;
+    --food-stuff-group-border: 1.5px;
+    --food-stuff-group-container: 25px;
+    --food-stuff-group-icon: 20px;
+    --food-stuff-group-margin: 2px;
+    --title-text-size: 16px;
+    --amount-text-size: 13px;
+    --food-stuff-image: 50px;
+    --food-stuff-image-margin: 0.75rem;
+  }
+}
 
-//     ion-icon {
-//       font-size: 18px;
-//     }
+////////
+// SM //
+@media only screen and (min-width: 490px) and (max-width: 767px) {
+  :host {
+    --padding-food-stuff-card: 10px;
+    --food-stuff-group-border: 2px;
+    --food-stuff-group-container: 30px;
+    --food-stuff-group-icon: 25px;
+    --food-stuff-group-margin: 3px;
+    --title-text-size: 20px;
+    --amount-text-size: 14px;
+    --food-stuff-image: 65px;
+    --food-stuff-image-margin: 0.75rem;
+  }
+}
+
+////////
+// MD //
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  :host {
+    --padding-food-stuff-card: 12px;
+    --food-stuff-group-border: 2.5px;
+    --food-stuff-group-container: 35px;
+    --food-stuff-group-icon: 30px;
+    --food-stuff-group-margin: 4px;
+    --title-text-size: 22px;
+    --amount-text-size: 14px;
+    --food-stuff-image: 70px;
+    --food-stuff-image-margin: 0.75rem;
+  }
+}
+
+////////
+// LG //
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  :host {
+    --padding-food-stuff-card: 10px;
+    --food-stuff-group-border: 2.5px;
+    --food-stuff-group-container: 35px;
+    --food-stuff-group-icon: 30px;
+    --food-stuff-group-margin: 4px;
+    --title-text-size: 20px;
+    --amount-text-size: 14px;
+    --food-stuff-image: 65px;
+    --food-stuff-image-margin: 0.75rem;
+  }
+}
+
+// XL
+@media only screen and (min-width: 1200px) {
+  :host {
+    --padding-food-stuff-card: 10px;
+    --food-stuff-group-border: 2.5px;
+    --food-stuff-group-container: 35px;
+    --food-stuff-group-icon: 30px;
+    --food-stuff-group-margin: 4px;
+    --title-text-size: 19px;
+    --amount-text-size: 14px;
+    --food-stuff-image: 70px;
+    --food-stuff-image-margin: 0.75rem;
   }
 }

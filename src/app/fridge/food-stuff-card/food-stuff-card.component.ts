@@ -15,6 +15,12 @@ export class FoodStuffCardComponent implements OnInit {
   @Input() public item: FoodStuff;
   public isOpenEditFoodStuff = false;
 
+  /*
+    Añadir elipsis al título de las cards comprobando el height del h1
+    y viendo si es mayor que el height de ion-card-title. Si lo es,
+    añadir '...'
+   */
+
   constructor(
     private store: Store
   ) { }

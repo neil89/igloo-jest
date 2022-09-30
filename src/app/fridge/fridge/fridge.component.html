@@ -14,11 +14,26 @@
     Food selected is {{ activeFood$ | async }}
   </p>
   <div id="container">
-    <app-food-stuff-card
-      *ngFor="let foodItem of items$ | async"
-      [item]="foodItem"
-    >
-    </app-food-stuff-card>
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col
+          size="6"
+          size-sm="6"
+          size-md="4"
+          size-lg="4"
+          size-xl="3"
+          *ngFor="let foodItem of items$ | async"
+        >
+        <!-- size-md="4"
+          size-lg="3" -->
+          <app-food-stuff-card
+            [item]="foodItem"
+          >
+          </app-food-stuff-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
   </div>
 
 </ion-content>

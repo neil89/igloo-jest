@@ -16,6 +16,10 @@ export class FoodStuffUnitsOfMeasure implements PipeTransform {
         measure = amount === 1 ? 'paquete' : 'paquetes';
         foodStuffAmount += ` ${measure}`;
         break;
+      case 'bottle':
+        measure = amount === 1 ? 'bote' : 'botes';
+        foodStuffAmount += ` ${measure}`;
+        break;
     }
 
     return foodStuffAmount;

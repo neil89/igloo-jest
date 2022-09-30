@@ -16,7 +16,8 @@ export type UnitsOfMeasure =
   'kg' |
   'g' |
   'units' |
-  'package';
+  'package'|
+  'bottle';
 
 export type FoodGroup =
   'Vegetables' |

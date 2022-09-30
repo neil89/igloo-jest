@@ -3,26 +3,61 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: start;
+  padding: 0 var(--ion-grid-column-padding);
 
-  app-food-stuff-card {
-    height: 110px;
-    margin: 5px 2.5%;
-    width: 30%;
+  & ion-grid {
+    padding-bottom: 1rem;
+
+    & ion-col {
+      height: var(--col-height);
+    }
   }
 }
 
-@media only screen and (max-width: 768px) {
+////////
+// XS //
+@media only screen and (max-width: 489px) {
+  #container {
+    --ion-grid-column-padding: 6px;
+    --col-height: 83px;
+  }
+}
+
+////////
+// SM //
+@media only screen and (min-width: 490px) and (max-width: 767px) {
+  #container {
+    --ion-grid-column-padding: 8px;
+    --col-height: 99px;
+  }
+}
+
+////////
+// MD //
+@media only screen and (min-width: 768px) and (max-width: 991px) {
 
   #container {
-    ion-card {
-      width: 100%;
-      min-width: auto;
+    --ion-grid-column-padding: 10px;
+    --col-height: 110px;
+  }
+}
 
-      ion-card-content {
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: space-between;
-      }
-    }
+////////
+// LG //
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+
+  #container {
+    --ion-grid-column-padding: 8px;
+    --col-height: 99px;
+  }
+}
+
+////////
+// XL //
+@media only screen and (min-width: 1200px) {
+
+  #container {
+    --ion-grid-column-padding: 6px;
+    --col-height: 110px;
   }
 }
