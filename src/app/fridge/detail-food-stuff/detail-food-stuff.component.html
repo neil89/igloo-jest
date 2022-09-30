@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{item.name}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="closeModal($event)"
+      >
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-row>
+    <ion-col size="4">
+      <img src="/assets/images/no-food-stuff-placeholder.png">
+    </ion-col>
+    <ion-col size="8">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Grupo</ion-label>
+            <img [src]="'assets/icon/food-stuff-groups/'+item.group.toLowerCase()+'_placeholder.png'"/>
+            <ion-input type="text" disabled="true" readonly="true">{{item.group | foodStuffGroup}}</ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Grupo</ion-label>
+            <img [src]="'assets/icon/food-stuff-groups/'+item.group.toLowerCase()+'_placeholder.png'"/>
+            <ion-input type="text" disabled="true" readonly="true">{{item.group | foodStuffGroup}}</ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+  <ion-item>
+
+  </ion-item>
+  <!-- <ion-item>
+    <ion-label position="floating">Grupo</ion-label>
+    <img [src]="'assets/icon/food-stuff-groups/'+item.group.toLowerCase()+'_placeholder.png'"/>
+    <ion-input type="text" disabled="true" readonly="true">{{item.group | foodStuffGroup}}</ion-input>
+  </ion-item> -->
+</ion-content>
+
+<!--
+<ion-card
+  *ngIf="item"
+  [id]="item.id"
+>
+  <ion-card-header>
+    <img src="/assets/images/no-food-stuff-placeholder.png">
+    <ion-card-title>
+      <h1>{{item.name}}</h1>
+    </ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+
+    <div class="food-stuff-group-container">
+      <ion-chip>
+        <ion-avatar>
+          <img [src]="'assets/icon/food-stuff-groups/'+item.group.toLowerCase()+'_placeholder.png'"/>
+        </ion-avatar>
+        <ion-label> {{item.group | foodStuffGroup}}</ion-label>
+      </ion-chip>
+    </div>
+
+    <main>
+      <p class="paragraph-vertical-align-icon">
+        <span class="amount">
+          <ion-icon name="layers-outline"></ion-icon>
+          <span class="small-space-horizontal-separation">
+            Cantidad: x {{item.units | foodStuffUnitsOfMeasure : item.amount }}
+          </span>
+        </span>
+      </p>
+      <p class="paragraph-vertical-align-icon">
+        <img class="placeholder-icon" src="/assets/icon/expiration_type.png">
+        <span class="small-space-horizontal-separation">Duración: </span>
+        <span [ngClass]="{
+          'expirationTypeGreen': item.expirationType === 'Imperisable',
+          'expirationTypeLime': item.expirationType === 'Long-lasting',
+          'expirationTypeYellow': item.expirationType === 'Short-lasting',
+          'expirationTypeRed': item.expirationType === 'Day-lasting'
+        }">
+          {{item.expirationType | foodStuffExpirationType}}
+        </span>
+      </p>
+    </main>
+  </ion-card-content>
+</ion-card> -->

@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { IonModal } from '@ionic/angular';
-import { Subject } from 'rxjs';
-import { first, takeUntil } from 'rxjs/operators';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable, Subject } from 'rxjs';
+
 import { FoodStuff } from '../../models/food.model';
 import { FridgeService } from '../fridge.service';
+import { FridgeActions, selectActiveFoodStuff, selectFoodsStuffList, selectOpenDetailFoodStuff } from '../store';
 
 
 @Component({
@@ -14,18 +15,28 @@ import { FridgeService } from '../fridge.service';
 
 export class FridgeComponent implements OnInit, OnDestroy {
 
-  @ViewChild(IonModal) public modal: IonModal;
-
   public items: FoodStuff[] = [];
+  public items$: Observable<FoodStuff[]> = null;
   public imgSrc: string[] = [];
+  public activeFood$;
+  public openFoodStuffDetails$;
 
   private readonly clearSubscriptions$: Subject<void> = new Subject();
 
   constructor(
+    private store: Store,
     private fridgeService: FridgeService
   ) { }
 
   public ngOnInit(): void {
+    this.activeFood$ = this.store.select(selectActiveFoodStuff);
+    this.openFoodStuffDetails$ = this.store.select(selectOpenDetailFoodStuff);
+/*
+    this.openFoodStuffDetails$.subscribe( r => {
+      console.log(r);
+      openViewDetailModal
+    });*/
+
     this.getItems();
   }
 
@@ -34,10 +45,10 @@ export class FridgeComponent implements OnInit, OnDestroy {
     this.clearSubscriptions$.complete();
   }
 
-
-  public closeModal(ev) {
-    this.modal.dismiss(null, 'cancel');
+  public closeDetailModal() {
+    this.store.dispatch(FridgeActions.closeDetailFoodStuff());
   }
+
 
   private getItems() {
 
@@ -58,23 +69,27 @@ export class FridgeComponent implements OnInit, OnDestroy {
     //   expirationType: 'Long-lasting'
     // };
 
-    this.fridgeService.getProductsStuff()
-      .pipe(takeUntil(this.clearSubscriptions$))
-      .subscribe( food => {
-        this.items = [];
-        if( food?.length > 0 ) {
-          food.forEach( (f) => {
-            this.items.push( {
-              id: f.id,
-              amount: f.amount,
-              units: f.units,
-              name: f.name,
-              group: f.group,
-              expirationType: f.expirationType
-            } as FoodStuff );
-          });
-        }
-    });
+    ////////////////////////////////////////////////
+    // this.fridgeService.getFoodsStuff()
+    //   .pipe(takeUntil(this.clearSubscriptions$))
+    //   .subscribe( food => {
+    //     this.items = [];
+    //     if( food?.length > 0 ) {
+    //       food.forEach( (f) => {
+    //         this.items.push( {
+    //           id: f.id,
+    //           amount: f.amount,
+    //           units: f.units,
+    //           name: f.name,
+    //           group: f.group,
+    //           expirationType: f.expirationType
+    //         } as FoodStuff );
+    //       });
+    //     }
+    // });
+    this.store.dispatch(FridgeActions.loadFoodsStuff());
+    this.items$ = this.store.select(selectFoodsStuffList);
+
 
 
     // this.fridgeService.getProductStuffImages(peppers.name).subscribe((result) => {
@@ -85,5 +100,4 @@ export class FridgeComponent implements OnInit, OnDestroy {
     // this.items.push(peppers);
     // this.items.push(ham);
   }
-
 }

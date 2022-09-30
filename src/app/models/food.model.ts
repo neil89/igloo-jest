@@ -6,7 +6,11 @@ export interface FoodStuff {
   group: FoodGroup;
   expirationType: FoodExpirationType;
   expirationDate?: Date | null;
+  storagedIn: StoragePlace;
 }
+
+// Pluralize-es for plural when UnitsOfMeasure is units ??
+// https://github.com/jfromaniello/pluralize-es
 
 export type UnitsOfMeasure =
   'kg' |
@@ -32,3 +36,8 @@ export type FoodExpirationType =
   'Long-lasting' |
   'Short-lasting' |
   'Day-lasting';
+
+  export type StoragePlace =
+  'Pantry' |  // Ambient temperature
+  'Fridge' |  // 4º-5º
+  'Freezer';  // -18º

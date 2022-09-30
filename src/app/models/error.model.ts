@@ -1,4 +1,4 @@
-export interface Error {
+export interface CustomError {
   code: ErrorType;
   httpErrorCode: number;
   httpErrorMessage: string;

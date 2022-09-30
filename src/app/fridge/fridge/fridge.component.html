@@ -10,35 +10,26 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <p>
+    Food selected is {{ activeFood$ | async }}
+  </p>
   <div id="container">
     <app-food-stuff-card
-      *ngFor="let foodItem of items"
+      *ngFor="let foodItem of items$ | async"
       [item]="foodItem"
     >
     </app-food-stuff-card>
   </div>
+
 </ion-content>
 
 <ion-modal
-  trigger="open-modal"
+  #detailModal
+  [isOpen]="openFoodStuffDetails$ | async"
+  (willDismiss)="closeDetailModal()"
 >
   <ng-template>
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-button (click)="closeModal($event)">Cancel</ion-button>
-        </ion-buttons>
-        <ion-title>Welcome</ion-title>
-        <ion-buttons slot="end">
-          <ion-button (click)="closeModal($event)" [strong]="true">Confirm</ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content class="ion-padding">
-      <ion-item>
-        <ion-label position="stacked">Enter your name</ion-label>
-        <ion-input type="text" placeholder="Your name"></ion-input>
-      </ion-item>
-    </ion-content>
+    <app-detail-food-stuff class="ion-page" [item]="activeFood$ | async">
+    </app-detail-food-stuff>
   </ng-template>
 </ion-modal>

@@ -1,12 +1,18 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { createAction, props } from '@ngrx/store';
+
 import { FoodStuff } from 'src/app/models/food.model';
+import { CustomError } from 'src/app/models/error.model';
 
 export enum FoodStuffCardActionsType {
   SET_FOOD_STUFF_ACTIVE = '[FoodStuff Card] Set food stuff active',
   UNSET_FOOD_STUFF_ACTIVE = '[FoodStuff Card] Unset food stuff active',
-  VIEW_DETAIL_FOOD_STUFF = '[FoodStuff Card] View detail food stuff',
+  OPEN_DETAIL_FOOD_STUFF = '[FoodStuff Card] Open panel of food stuff detail',
+  CLOSE_DETAIL_FOOD_STUFF = '[FoodStuff Card] Close panel of food stuff detail',
+  LOAD_FOOD_STUFF = '[Fridge] Load all foods stuff',
+  LOAD_FOOD_STUFF_SUCCESS = '[Fridge] Load all foods stuff success',
+  LOAD_FOOD_STUFF_FAIL = '[Fridge] Load all foods stuff fail',
   EDIT_FOOD_STUFF = '[FoodStuff Card] Edit food stuff',
   EDIT_FOOD_STUFF_SUCCESS = '[FoodStuff Card] Edit food stuff success',
   EDIT_FOOD_STUFF_FAIL = '[FoodStuff Card] Edit food stuff fail',
@@ -21,12 +27,25 @@ export const setFoodStuffActive = createAction(
   props<{ foodId: string }>()
 );
 export const unsetFoodStuffActive = createAction(
-  FoodStuffCardActionsType.UNSET_FOOD_STUFF_ACTIVE,
+  FoodStuffCardActionsType.UNSET_FOOD_STUFF_ACTIVE
+);
+export const openDetailFoodStuff = createAction(
+  FoodStuffCardActionsType.OPEN_DETAIL_FOOD_STUFF,
   props<{ foodId: string }>()
 );
-export const viewDetailFoodStuff = createAction(
-  FoodStuffCardActionsType.VIEW_DETAIL_FOOD_STUFF,
-  props<{ foodStuff: FoodStuff }>()
+export const closeDetailFoodStuff = createAction(
+  FoodStuffCardActionsType.CLOSE_DETAIL_FOOD_STUFF
+);
+export const loadFoodsStuff = createAction(
+  FoodStuffCardActionsType.LOAD_FOOD_STUFF
+);
+export const loadFoodsStuffSuccess = createAction(
+  FoodStuffCardActionsType.LOAD_FOOD_STUFF_SUCCESS,
+  props<{ foodsStuff: FoodStuff[] }>()
+);
+export const loadFoodsStuffFail = createAction(
+  FoodStuffCardActionsType.LOAD_FOOD_STUFF_FAIL,
+  props<{ error: CustomError }>()
 );
 export const editFoodStuff = createAction(
   FoodStuffCardActionsType.EDIT_FOOD_STUFF,
@@ -38,7 +57,7 @@ export const editFoodStuffSuccess = createAction(
 );
 export const editFoodStuffFail = createAction(
   FoodStuffCardActionsType.EDIT_FOOD_STUFF_FAIL,
-  props<{ error: Error }>()
+  props<{ error: CustomError }>()
 );
 export const deleteFoodStuff = createAction(
   FoodStuffCardActionsType.DELETE_FOOD_STUFF,
@@ -54,5 +73,5 @@ export const deleteFoodStuffSuccess = createAction(
 );
 export const deleteFoodStuffFail = createAction(
   FoodStuffCardActionsType.DELETE_FOOD_STUFF_FAIL,
-  props<{ error: Error }>()
+  props<{ error: CustomError }>()
 );

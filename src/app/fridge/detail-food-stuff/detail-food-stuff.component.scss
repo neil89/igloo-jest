@@ -1,0 +1,92 @@
+ion-card {
+  height: auto;
+  padding: 2rem 1.5rem;
+  width: 100%;
+
+  & > ion-card-header {
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    margin-bottom: 1.5rem;
+    padding: 0;
+
+    & > ion-card-title {
+      align-items: center;
+      display: flex;
+      flex-flow: row;
+      height: 96px;
+      margin: 0;
+      width: 80%;
+
+      & > h1 {
+        font-size: 40px;
+        line-height: 1.2;
+        margin: 0;
+      }
+    }
+
+    & > img {
+      height: auto;
+      width: 120px;
+    }
+  }
+
+  & > ion-card-content {
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: left;
+
+    // & > div.food-stuff-group-container {
+    //   position: absolute;
+    //   border: solid 2.5px var(--ion-color-tertiary);
+    //   border-radius: 50%;
+    //   width: 35px;
+    //   height: 35px;
+    //   display: flex;
+    //   align-items: center;
+    //   justify-content: center;
+    //   background-color: white;
+    //   left: 60px;
+    //   bottom: 10px;
+    //   overflow: clip;
+
+    //   & > img {
+    //     width: 25px;
+    //     height: 25px;
+    //   }
+    // }
+
+    & > main {
+      display: flex;
+      flex-flow: column nowrap;
+      width: 100%;
+
+      & > p {
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+.placeholder-icon {
+  width: 18px;
+  height: auto;
+}
+
+.expirationTypeGreen {
+  color: #1ca865;
+}
+
+.expirationTypeLime {
+  color: #7bb411;
+}
+
+.expirationTypeYellow {
+  color: #cfaa06;
+}
+
+.expirationTypeRed {
+  color: #9b0e04;
+}

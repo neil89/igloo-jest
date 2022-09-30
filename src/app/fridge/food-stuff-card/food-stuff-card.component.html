@@ -1,7 +1,7 @@
 <ion-card
   [id]="item.id"
   [class.active]="isOpenEditFoodStuff"
-  (click)="setActive()"
+  (click)="setActive($event)"
 >
   <ion-card-content>
     <img src="/assets/images/no-food-stuff-placeholder.png">
@@ -31,8 +31,9 @@
                 shape="round"
                 size="small"
                 color="primary"
+                (click)="onClickViewDetail()"
               >
-                <ion-icon slot="icon-only" name="resize-outline"></ion-icon>
+                <ion-icon slot="icon-only" name="open-outline"></ion-icon>
               </ion-button>
               <ion-button
                 shape="round"
@@ -97,6 +98,9 @@
     </p>
   </ion-card-content> -->
 </ion-card>
+
+<!--
+Active: {{activeFood | async | json}} -->
 
 <!-- <div>
   <img *ngFor="let imgSrc of imgSrc" [src]="imgSrc">

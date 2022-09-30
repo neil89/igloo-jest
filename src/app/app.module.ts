@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AngularFireModule } from '@angular//fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
@@ -29,7 +30,11 @@ const angularFire = [
     AppRoutingModule,
     SharedModule,
     IonicModule.forRoot(),
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      name: 'iGloo',
+      maxAge: 50
+    }),
     EffectsModule.forRoot([]),
     ...angularFire
   ],

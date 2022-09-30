@@ -21,7 +21,7 @@ export class FridgeService {
     private firestore: AngularFirestore
   ) { }
 
-  getProductsStuff() {
+  getFoodsStuff() {
     return this.firestore
       .collection<FoodStuff>('FoodStuff')
       .valueChanges({ idField: 'id' });

@@ -8,6 +8,11 @@ import { IonicModule } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { FridgeService } from './fridge.service';
 import { FoodStuffCardComponent } from './food-stuff-card/food-stuff-card.component';
+import { StoreModule } from '@ngrx/store';
+import { fridgeReducer } from './store/reducers/fridge.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { FridgeEffects } from './store/effects/fridge.effects';
+import { DetailFoodStuffComponent } from './detail-food-stuff/detail-food-stuff.component';
 
 
 const pipes = [
@@ -19,13 +24,16 @@ const pipes = [
 @NgModule({
   declarations: [
     FridgeComponent,
+    FoodStuffCardComponent,
     ...pipes,
-    FoodStuffCardComponent
+    DetailFoodStuffComponent
   ],
   imports: [
-    IonicModule.forRoot(),
     SharedModule,
     FridgeRoutingModule,
+    IonicModule.forRoot(),
+    StoreModule.forFeature('fridge', fridgeReducer),
+    EffectsModule.forFeature([FridgeEffects])
   ],
   providers: [
     HttpClientModule,
