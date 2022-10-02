@@ -29,28 +29,28 @@ export class FoodStuffUnitsOfMeasure implements PipeTransform {
 @Pipe({ name: 'foodStuffGroup' })
 export class FoodStuffGroup implements PipeTransform {
   transform(value: FoodGroup): string {
-    switch(value) {
-      case 'Vegetables':
+    switch(value.toLowerCase()) {
+      case 'vegetables':
         return 'Frutas y verduras';
-      case 'Sauces':
+      case 'sauces':
         return 'Salsas y aceites';
-      case 'Bread':
+      case 'bread':
         return 'Pan y cereales';
-      case 'Dairy':
+      case 'dairy':
         return 'Huevos, lácteos y derivados';
-      case 'Meat':
+      case 'meat':
         return 'Carne y embutidos';
-      case 'Fish':
+      case 'fish':
         return 'Pescado y marisco';
-      case 'Frozen':
+      case 'frozen':
         return 'Congelados';
-      case 'Vegetarian':
+      case 'vegetarian':
         return 'Vegetariano';
-      case 'Snacks':
+      case 'snacks':
         return 'Picoteo y chuches';
-      case 'Cleaning':
+      case 'cleaning':
         return 'Limpieza y aseo';
-      case 'Pets':
+      case 'pets':
         return 'Mascotas';
     }
   }

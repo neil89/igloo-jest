@@ -17,28 +17,36 @@
     </ion-col>
     <ion-col size="8">
       <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-label position="floating">Grupo</ion-label>
+        <div class="detail-food-property">
+          <div class="icon">
             <img [src]="'assets/icon/food-stuff-groups/'+item.group.toLowerCase()+'_placeholder.png'"/>
-            <ion-input type="text" disabled="true" readonly="true">{{item.group | foodStuffGroup}}</ion-input>
-          </ion-item>
-        </ion-col>
+          </div>
+          <div class="view">
+            <label>Grupo</label>
+            <span *ngIf="!isEditing; else groupEdit">{{item.group | foodStuffGroup}}</span>
+          </div>
+          <div class="edit">
+            <ng-template #groupEdit>
+              <ion-label position="floating">Grupo</ion-label>
+              <ion-input type="text" disabled="true" readonly="true">{{item.group | foodStuffGroup}}</ion-input>
+            </ng-template>
+          </div>
+        </div>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-label position="floating">Grupo</ion-label>
-            <img [src]="'assets/icon/food-stuff-groups/'+item.group.toLowerCase()+'_placeholder.png'"/>
-            <ion-input type="text" disabled="true" readonly="true">{{item.group | foodStuffGroup}}</ion-input>
+            <ion-label position="floating">Cantidad</ion-label>
+            <div>
+              <ion-icon name="layers-outline"></ion-icon>
+              <ion-input type="text" disabled="true" readonly="true">x {{item.units | foodStuffUnitsOfMeasure : item.amount }}</ion-input>
+            </div>
           </ion-item>
         </ion-col>
       </ion-row>
     </ion-col>
   </ion-row>
-  <ion-item>
 
-  </ion-item>
   <!-- <ion-item>
     <ion-label position="floating">Grupo</ion-label>
     <img [src]="'assets/icon/food-stuff-groups/'+item.group.toLowerCase()+'_placeholder.png'"/>

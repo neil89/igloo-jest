@@ -11,6 +11,7 @@ import { FridgeActions } from '../store';
 export class DetailFoodStuffComponent implements OnInit {
 
   @Input() public item: FoodStuff;
+  public isEditing = false;
 
   constructor(
     private store: Store
