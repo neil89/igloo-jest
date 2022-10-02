@@ -2,7 +2,13 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { FridgeComponent } from './fridge/fridge.component';
 import { FridgeRoutingModule } from './fridge-routing.module';
-import { FoodStuffExpirationType, FoodStuffGroup, FoodStuffUnitsOfMeasure } from '../pipes/foodStuff.pipe';
+import {
+  FoodStuffExpirationType,
+  FoodStuffExpirationTypeWithEstimatedDate,
+  FoodStuffGroup,
+  FoodStuffStorage,
+  FoodStuffUnitsOfMeasure
+} from '../pipes/foodStuff.pipe';
 
 import { IonicModule } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
@@ -18,7 +24,9 @@ import { DetailFoodStuffComponent } from './detail-food-stuff/detail-food-stuff.
 const pipes = [
   FoodStuffUnitsOfMeasure,
   FoodStuffGroup,
-  FoodStuffExpirationType
+  FoodStuffExpirationType,
+  FoodStuffExpirationTypeWithEstimatedDate,
+  FoodStuffStorage
 ];
 
 @NgModule({

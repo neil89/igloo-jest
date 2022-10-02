@@ -28,47 +28,35 @@
             <span class="amount">
               x {{item.units | foodStuffUnitsOfMeasure : item.amount }}
             </span>
-
-            <ion-popover
-              [isOpen]="isOpenEditFoodStuff"
-              (didDismiss)="unsetActive()"
-              [trigger]="item.id"
-              size="cover"
-              side="bottom"
-              alignment="center"
-            >
-              <ng-template>
-                <ion-content class="panel-edit-food-stuff">
-                  <ion-button
-                    shape="round"
-                    size="small"
-                    color="primary"
-                    (click)="onClickViewDetail()"
-                  >
-                    <ion-icon slot="icon-only" name="open-outline"></ion-icon>
-                  </ion-button>
-                  <ion-button
-                    shape="round"
-                    size="small"
-                    color="secondary"
-                  >
-                    <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-                  </ion-button>
-                  <ion-button
-                    shape="round"
-                    size="small"
-                    color="danger"
-                  >
-                    <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-                  </ion-button>
-                </ion-content>
-              </ng-template>
-            </ion-popover>
           </div>
         </main>
       </ng-template>
+
       <ng-template swiperSlide>
-        <p>Cantidad: {{item.units | foodStuffUnitsOfMeasure : item.amount }}</p>
+        <div class="foodStuffCardInfo">
+          <div class="foodAmountInMenu">
+            <span>En menú: </span>
+            <span> x 0</span>
+          </div>
+          <div class="foodExpirationDate">
+            <ion-icon name="calendar-clear-outline"></ion-icon>
+            <span>Caducidad:</span>
+            <span [ngClass]="{
+              'expirationTypeGreen': item.expirationType.toLowerCase() === 'imperisable',
+              'expirationTypeLime': item.expirationType.toLowerCase() === 'long-lasting',
+              'expirationTypeYellow': item.expirationType.toLowerCase() === 'short-lasting',
+              'expirationTypeRed': item.expirationType.toLowerCase() === 'day-lasting'
+            }">
+              {{item.expirationType | foodStuffExpirationTypeWithEstimatedDate}}
+            </span>
+          </div>
+          <div class="foodStoragePlace">
+            <span>Almacenado en:</span>
+            <img [src]="'assets/icon/'+item.storagedIn.toLowerCase()+'.png'"/>
+            {{item.storagedIn | foodStuffStorage}}
+          </div>
+        </div>
+        <!-- <p>Cantidad: {{item.units | foodStuffUnitsOfMeasure : item.amount }}</p>
         <p class="paragraph-vertical-align-icon">
           <ion-icon name="time-outline"></ion-icon>
           <span class="small-space-horizontal-separation">Duración: </span>
@@ -80,11 +68,47 @@
           }">
             {{item.expirationType | foodStuffExpirationType}}
           </span>
-        </p>
+        </p> -->
       </ng-template>
     </swiper>
   </ion-card-content>
 </ion-card>
+
+<ion-popover
+  [isOpen]="isOpenEditFoodStuff"
+  (didDismiss)="unsetActive()"
+  [trigger]="item.id"
+  size="cover"
+  side="bottom"
+  alignment="center"
+>
+  <ng-template>
+    <ion-content class="panel-edit-food-stuff">
+      <ion-button
+        shape="round"
+        size="small"
+        color="primary"
+        (click)="onClickViewDetail()"
+      >
+        <ion-icon slot="icon-only" name="open-outline"></ion-icon>
+      </ion-button>
+      <ion-button
+        shape="round"
+        size="small"
+        color="secondary"
+      >
+        <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+      </ion-button>
+      <ion-button
+        shape="round"
+        size="small"
+        color="danger"
+      >
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-content>
+  </ng-template>
+</ion-popover>
 
 <!------------------------------------------------------------------
   <ion-card-header>

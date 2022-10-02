@@ -11,7 +11,7 @@ SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom, EffectFlip]);
 @Component({
   selector: 'app-food-stuff-card',
   templateUrl: './food-stuff-card.component.html',
-  styleUrls: ['./food-stuff-card.component.scss'],
+  styleUrls: ['./food-stuff-card.component.scss']
 })
 export class FoodStuffCardComponent implements OnInit {
 

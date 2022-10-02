@@ -26,6 +26,10 @@
 
         & .swiper-pagination {
           bottom: 0;
+
+          & > .swiper-pagination-bullet {
+            opacity: 1;
+          }
         }
 
         & .swiper-wrapper .swiper-slide-visible {
@@ -94,6 +98,31 @@
                 & > ion-icon {
                   font-size: 18px;
                 }
+              }
+            }
+          }
+
+          .foodStuffCardInfo {
+            align-content: space-between;
+            display: flex;
+            flex-flow: column;
+            justify-content: start;
+            height: calc(var(--swiper-slide-height) - 15px);
+            margin-top: -5px;
+            padding: 0;
+            width: 100%;
+
+            & > div {
+              align-items: center;
+              display: flex;
+              flex-flow: row nowrap;
+              font-size: 14px;
+              height: calc(var(--swiper-slide-height) / 3);
+              justify-content: start;
+
+              img {
+                height: 18px;
+                width: 18px;
               }
             }
           }
