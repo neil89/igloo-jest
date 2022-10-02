@@ -7,6 +7,7 @@
 
   & ion-grid {
     padding-bottom: 1rem;
+    width: 100%;
 
     & ion-col {
       height: var(--col-height);
@@ -18,8 +19,8 @@
 // XS //
 @media only screen and (max-width: 489px) {
   #container {
-    --ion-grid-column-padding: 6px;
-    --col-height: 83px;
+    --ion-grid-column-padding: 4px;
+    --col-height: 92px;
   }
 }
 
@@ -27,8 +28,8 @@
 // SM //
 @media only screen and (min-width: 490px) and (max-width: 767px) {
   #container {
-    --ion-grid-column-padding: 8px;
-    --col-height: 99px;
+    --ion-grid-column-padding: 6px;
+    --col-height: 108px;
   }
 }
 
@@ -37,8 +38,8 @@
 @media only screen and (min-width: 768px) and (max-width: 991px) {
 
   #container {
-    --ion-grid-column-padding: 10px;
-    --col-height: 110px;
+    --ion-grid-column-padding: 8px;
+    --col-height: 112px;
   }
 }
 
@@ -47,8 +48,8 @@
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
 
   #container {
-    --ion-grid-column-padding: 8px;
-    --col-height: 99px;
+    --ion-grid-column-padding: 6px;
+    --col-height: 108px;
   }
 }
 
@@ -57,7 +58,7 @@
 @media only screen and (min-width: 1200px) {
 
   #container {
-    --ion-grid-column-padding: 6px;
-    --col-height: 110px;
+    --ion-grid-column-padding: 4px;
+    --col-height: 106px;
   }
 }

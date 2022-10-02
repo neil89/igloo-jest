@@ -1,82 +1,101 @@
-ion-card {
-  height: auto;
-  cursor: pointer;
-  margin-inline: 0;
-  transition: all 0.25s ease-in-out;
-  width: 100%;
+:host ::ng-deep {
+  ion-card {
+    height: auto;
+    cursor: pointer;
+    margin-inline: 0;
+    transition: all 0.25s ease-in-out;
+    width: 100%;
 
-  &:hover, &.active {
-    transform: scale(1.1);
-    box-shadow:
-      rgb(0 0 0 / 40%) 0px 8px 7px 2px,
-      rgb(0 0 0 / 35%) 0px 4px 4px 1px,
-      rgb(0 0 0 / 25%) 0px 2px 6px 0px
-  }
+    // &:hover, &.active {
+    //   transform: scale(1.1);
+    //   box-shadow:
+    //     rgb(0 0 0 / 40%) 0px 8px 7px 2px,
+    //     rgb(0 0 0 / 35%) 0px 4px 4px 1px,
+    //     rgb(0 0 0 / 25%) 0px 2px 6px 0px
+    // }
 
-  &.active {
-    border: solid 1px var(--ion-color-primary-shade);
-  }
-
-  & > ion-card-content {
-    align-items: center;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: left;
-    padding: var(--padding-food-stuff-card);
-
-    & > img {
-      height: var(--food-stuff-image);
-      width: var(--food-stuff-image);
-      margin-right: var(--food-stuff-image-margin);
+    &.active {
+      border: solid 1px var(--ion-color-primary-shade);
     }
 
-    & > div.food-stuff-group-container {
-      position: absolute;
-      border: solid var(--ion-color-tertiary) var(--food-stuff-group-border);
-      border-radius: 50%;
-      width: var(--food-stuff-group-container);
-      height: var(--food-stuff-group-container);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: white;
-      left: var(--food-stuff-group-margin);
-      bottom: 10px;
-      overflow: clip;
+    & ion-card-content {
+      padding: 0 var(--padding-food-stuff-card);
 
-      & > img {
-        width: var(--food-stuff-group-icon);
-        height: var(--food-stuff-group-icon);
-      }
-    }
+      & swiper {
+        height: var(--swiper-height);
 
-    & > main {
-      display: flex;
-      flex-flow: column nowrap;
-      width: 100%;
-
-      & > ion-card-title {
-        height: calc(var(--title-text-size) * 2);
-
-        & > h1 {
-          font-size: var(--title-text-size);
-          line-height: 1;
+        & .swiper-pagination {
+          bottom: 0;
         }
-      }
 
-      .amount {
-        font-size: var(--amount-text-size);
-      }
+        & .swiper-wrapper .swiper-slide-visible {
+          align-items: center;
+          display: flex;
+          flex-flow: row nowrap;
+          height: var(--swiper-slide-height);
+          justify-content: left;
 
-      & > div {
-        align-items: center;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: space-between;
+          & > img {
+            height: var(--food-stuff-image);
+            width: var(--food-stuff-image);
+            margin-right: var(--food-stuff-image-margin);
+          }
 
-        & > ion-button#open-edit-food-stuff-button {
-          & > ion-icon {
-            font-size: 18px;
+          & > div.food-stuff-group-container {
+            position: absolute;
+            border: solid var(--ion-color-tertiary) var(--food-stuff-group-border);
+            border-radius: 50%;
+            width: var(--food-stuff-group-container);
+            height: var(--food-stuff-group-container);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            left: var(--food-stuff-group-margin);
+            bottom: 10px;
+            overflow: clip;
+
+            & > img {
+              width: var(--food-stuff-group-icon);
+              height: var(--food-stuff-group-icon);
+            }
+          }
+
+          & > main {
+            display: flex;
+            flex-flow: column nowrap;
+            width: 100%;
+            margin-bottom: 5px;
+
+            & > ion-card-title {
+              height: calc(var(--title-text-size) * 2);
+              overflow: hidden;
+              text-overflow: ellipsis;
+
+              & > h1 {
+                font-size: var(--title-text-size);
+                line-height: 1;
+                text-align: left;
+              }
+            }
+
+            .amount {
+              margin-top: 5px;
+              font-size: var(--amount-text-size);
+            }
+
+            & > div {
+              align-items: center;
+              display: flex;
+              flex-flow: row nowrap;
+              justify-content: space-between;
+
+              & > ion-button#open-edit-food-stuff-button {
+                & > ion-icon {
+                  font-size: 18px;
+                }
+              }
+            }
           }
         }
       }
@@ -93,7 +112,7 @@ ion-content.panel-edit-food-stuff {
     --padding-end: 0.5em;
   }
 
-   & > ion-button {
+  & > ion-button {
     height: 41px;
     width: 35px;
     margin: 0 calc(16.6% - 17.5px);
@@ -104,6 +123,8 @@ ion-content.panel-edit-food-stuff {
 // XS //
 @media only screen and (max-width: 489px) {
   :host {
+    --swiper-height: 84px;
+    --swiper-slide-height: 78px;
     --padding-food-stuff-card: 8px;
     --food-stuff-group-border: 1.5px;
     --food-stuff-group-container: 25px;
@@ -120,6 +141,8 @@ ion-content.panel-edit-food-stuff {
 // SM //
 @media only screen and (min-width: 490px) and (max-width: 767px) {
   :host {
+    --swiper-height: 96px;
+    --swiper-slide-height: 86px;
     --padding-food-stuff-card: 10px;
     --food-stuff-group-border: 2px;
     --food-stuff-group-container: 30px;
@@ -136,6 +159,8 @@ ion-content.panel-edit-food-stuff {
 // MD //
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   :host {
+    --swiper-height: 98px;
+    --swiper-slide-height: 90px;
     --padding-food-stuff-card: 12px;
     --food-stuff-group-border: 2.5px;
     --food-stuff-group-container: 35px;
@@ -152,6 +177,8 @@ ion-content.panel-edit-food-stuff {
 // LG //
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   :host {
+    --swiper-height: 98px;
+    --swiper-slide-height: 90px;
     --padding-food-stuff-card: 10px;
     --food-stuff-group-border: 2.5px;
     --food-stuff-group-container: 35px;
@@ -167,11 +194,13 @@ ion-content.panel-edit-food-stuff {
 // XL
 @media only screen and (min-width: 1200px) {
   :host {
+    --swiper-height: 98px;
+    --swiper-slide-height: 90px;
     --padding-food-stuff-card: 10px;
     --food-stuff-group-border: 2.5px;
     --food-stuff-group-container: 35px;
     --food-stuff-group-icon: 30px;
-    --food-stuff-group-margin: 4px;
+    --food-stuff-group-margin: -4px;
     --title-text-size: 19px;
     --amount-text-size: 14px;
     --food-stuff-image: 70px;
