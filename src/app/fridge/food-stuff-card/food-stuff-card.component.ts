@@ -1,9 +1,12 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import SwiperCore, { Autoplay, Keyboard, Pagination, Scrollbar, Zoom, EffectFlip } from 'swiper';
 
 import { FoodStuff } from 'src/app/models/food.model';
-import { selectActiveFoodStuff, selectActiveFoodStuffName } from '../store';
 import { FridgeActions } from '../store';
+
+SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom, EffectFlip]);
+
 
 @Component({
   selector: 'app-food-stuff-card',

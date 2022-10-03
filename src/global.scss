@@ -24,6 +24,14 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+@import '~@ionic/angular/css/ionic-swiper';
+@import '~swiper/scss';
+@import '~swiper/scss/autoplay';
+@import '~swiper/scss/keyboard';
+@import '~swiper/scss/pagination';
+@import '~swiper/scss/scrollbar';
+@import '~swiper/scss/zoom';
+@import '~swiper/scss/effect-flip';
 
 .ion-color-quaternary {
   --ion-color-base: var(--ion-color-quaternary, #FFB703) !important;
@@ -61,4 +69,23 @@
 
 .small-space-horizontal-separation {
   margin-right: 0.25rem;
+}
+
+
+/* Clases comunes */
+
+.expirationTypeGreen {
+  color: #1ca865;
+}
+
+.expirationTypeLime {
+  color: #7bb411;
+}
+
+.expirationTypeYellow {
+  color: #cfaa06;
+}
+
+.expirationTypeRed {
+  color: #9b0e04;
 }

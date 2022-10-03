@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { FoodExpirationType, FoodGroup, FoodStoragePlace, UnitsOfMeasure } from '../models/food.model';
-//import { Utils } from '../shared/utils';
+import { Utils } from '../shared/utils';
 
 @Pipe({ name: 'foodStuffUnitsOfMeasure' })
 export class FoodStuffUnitsOfMeasure implements PipeTransform {
@@ -98,8 +98,7 @@ export class FoodStuffExpirationTypeWithEstimatedDate implements PipeTransform {
         break;
     }
 
-    //return `${translation} (~${Utils.convertDateToES(today)})`;
-    return translation;
+    return `${translation} (~${Utils.convertDateToES(today)})`;
   }
 }
 
