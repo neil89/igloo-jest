@@ -6,7 +6,7 @@ export interface FoodStuff {
   group: FoodGroup;
   expirationType: FoodExpirationType;
   expirationDate?: Date | null;
-  storagedIn: StoragePlace;
+  storagedIn: FoodStoragePlace;
 }
 
 // Pluralize-es for plural when UnitsOfMeasure is units ??
@@ -38,7 +38,7 @@ export type FoodExpirationType =
   'Short-lasting' |
   'Day-lasting';
 
-  export type StoragePlace =
+  export type FoodStoragePlace =
   'Pantry' |  // Ambient temperature
   'Fridge' |  // 4º-5º
   'Freezer';  // -18º

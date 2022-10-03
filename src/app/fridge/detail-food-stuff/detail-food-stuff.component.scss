@@ -1,51 +1,18 @@
-.detail-food-property {
-  align-items: center;
-  display: flex;
-  flex-flow: row nowrap;
-  padding: 5px;
+ion-content {
 
-  & > .icon {
-    background-color: white;
-    border: solid 2px var(--ion-color-quaternary-contrast);
-    border-radius: 50%;
-    height: 45px;
-    margin: 1rem;
-    width: 45px;
+  & ion-col.col-form {
 
-    & > img, & > ion-icon {
-      height: 40px;
-      width: 40px;
+    & > div {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: start;
+      align-items: center;
+
+      & > ion-item {
+        display: flex;
+        flex-flow: column;
+        justify-content: start;
+      }
     }
   }
-  & > div.view {
-    color: var(--ion-color-step-800);
-    display: flex;
-    flex-flow: column nowrap;
-
-    & > label {
-      color: var(--ion-color-step-900);
-      font-weight: bold;
-    }
-  }
-}
-
-.placeholder-icon {
-  width: 18px;
-  height: auto;
-}
-
-.expirationTypeGreen {
-  color: #1ca865;
-}
-
-.expirationTypeLime {
-  color: #7bb411;
-}
-
-.expirationTypeYellow {
-  color: #cfaa06;
-}
-
-.expirationTypeRed {
-  color: #9b0e04;
 }
