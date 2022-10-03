@@ -98,7 +98,7 @@ export class FoodStuffExpirationTypeWithEstimatedDate implements PipeTransform {
         break;
     }
 
-    return `${translation} (${Utils.convertDateToES(today)})`;
+    return `${translation} (~${Utils.convertDateToES(today)})`;
   }
 }
 

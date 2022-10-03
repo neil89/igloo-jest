@@ -116,13 +116,13 @@
               align-items: center;
               display: flex;
               flex-flow: row nowrap;
-              font-size: 14px;
+              font-size: 12px;
               height: calc(var(--swiper-slide-height) / 3);
               justify-content: start;
 
-              img {
-                height: 18px;
-                width: 18px;
+              & > span:first-child {
+                font-weight: bold;
+                padding-right: 0.25em;
               }
             }
           }
@@ -162,7 +162,7 @@ ion-content.panel-edit-food-stuff {
     --title-text-size: 16px;
     --amount-text-size: 13px;
     --food-stuff-image: 50px;
-    --food-stuff-image-margin: 0.75rem;
+    --food-stuff-image-margin: 0.75em;
   }
 }
 
@@ -180,7 +180,7 @@ ion-content.panel-edit-food-stuff {
     --title-text-size: 20px;
     --amount-text-size: 14px;
     --food-stuff-image: 65px;
-    --food-stuff-image-margin: 0.75rem;
+    --food-stuff-image-margin: 0.75em;
   }
 }
 
@@ -198,7 +198,7 @@ ion-content.panel-edit-food-stuff {
     --title-text-size: 22px;
     --amount-text-size: 14px;
     --food-stuff-image: 70px;
-    --food-stuff-image-margin: 0.75rem;
+    --food-stuff-image-margin: 0.75em;
   }
 }
 
@@ -216,7 +216,7 @@ ion-content.panel-edit-food-stuff {
     --title-text-size: 20px;
     --amount-text-size: 14px;
     --food-stuff-image: 65px;
-    --food-stuff-image-margin: 0.75rem;
+    --food-stuff-image-margin: 0.75em;
   }
 }
 
@@ -233,6 +233,6 @@ ion-content.panel-edit-food-stuff {
     --title-text-size: 19px;
     --amount-text-size: 14px;
     --food-stuff-image: 70px;
-    --food-stuff-image-margin: 0.75rem;
+    --food-stuff-image-margin: 0.75em;
   }
 }
