@@ -1,15 +1,18 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { FoodStuff } from 'src/app/models/food.model';
+import { FoodExpirationTypeModel, FoodGroup, FoodGroupModel, FoodStoragePlaceModel, FoodStuffModel } from 'src/app/models/food.model';
 import { CustomError } from 'src/app/models/error.model';
-import { FridgeActions } from '../actions';
+import { FoodCollectionsActions, FridgeActions } from '../actions';
 
 export interface FridgeState {
-  foodsStuffList: FoodStuff[];
-  activeFoodStuff: FoodStuff;
+  foodsStuffList: FoodStuffModel[];
+  activeFoodStuff: FoodStuffModel;
   viewDetailFoodStuff: boolean;
   editFoodStuff: boolean;
   error: CustomError;
+  foodExpirationTypes: FoodExpirationTypeModel[];
+  foodGroups: FoodGroupModel[];
+  foodStoragePlaces: FoodStoragePlaceModel[];
 }
 
 const initialFridgeState: FridgeState = {
@@ -17,12 +20,16 @@ const initialFridgeState: FridgeState = {
   activeFoodStuff: null,
   viewDetailFoodStuff: false,
   editFoodStuff: false,
-  error: null
+  error: null,
+  foodExpirationTypes: [],
+  foodGroups: [],
+  foodStoragePlaces: [],
 };
 
 
 export const fridgeReducer = createReducer<FridgeState>(
   initialFridgeState,
+  /// FRIDGE ACTIONS
   on(FridgeActions.setFoodStuffActive, (state, action): FridgeState => {
     const food = state.foodsStuffList.find( f => f.id === action.foodId );
     return {
@@ -84,6 +91,57 @@ export const fridgeReducer = createReducer<FridgeState>(
     };
   }),
   on(FridgeActions.deleteFoodStuffFail, (state, action): FridgeState => (
+    {
+      ...state,
+      error: action.error
+    })
+  ),
+  /// FRIDGE COLLECTIONS ACTIONS
+  on(FoodCollectionsActions.loadFoodExpirationTypeSuccess, (state, action): FridgeState => (
+    {
+      ...state,
+      foodExpirationTypes: action.foodExpirationTypes
+    })
+  ),
+  on(FoodCollectionsActions.loadFoodExpirationTypeFail, (state, action): FridgeState => (
+    {
+      ...state,
+      error: action.error
+    })
+  ),
+  on(FoodCollectionsActions.loadFoodGroupSuccess, (state, action): FridgeState => (
+    {
+      ...state,
+      foodGroups: action.foodGroups
+    })
+  ),
+  on(FoodCollectionsActions.loadFoodGroupFail, (state, action): FridgeState => (
+    {
+      ...state,
+      error: action.error
+    })
+  ),
+  on(FoodCollectionsActions.loadFoodStoragePlaceSuccess, (state, action): FridgeState => (
+    {
+      ...state,
+      foodStoragePlaces: action.foodStoragePlaces
+    })
+  ),
+  on(FoodCollectionsActions.loadFoodStoragePlaceFail, (state, action): FridgeState => (
+    {
+      ...state,
+      error: action.error
+    })
+  ),
+  on(FoodCollectionsActions.loadAllFoodCollectionsSuccess, (state, action): FridgeState => (
+    {
+      ...state,
+      foodExpirationTypes: action.foodExpirationTypes,
+      foodGroups: action.foodGroups,
+      foodStoragePlaces: action.foodStoragePlaces
+    })
+  ),
+  on(FoodCollectionsActions.loadAllFoodCollectionsFail, (state, action): FridgeState => (
     {
       ...state,
       error: action.error

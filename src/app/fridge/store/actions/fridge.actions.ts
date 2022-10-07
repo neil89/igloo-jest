@@ -2,7 +2,7 @@
 
 import { createAction, props } from '@ngrx/store';
 
-import { FoodStuff } from 'src/app/models/food.model';
+import { FoodStuffModel } from 'src/app/models/food.model';
 import { CustomError } from 'src/app/models/error.model';
 
 export enum FoodStuffCardActionsType {
@@ -19,7 +19,7 @@ export enum FoodStuffCardActionsType {
   DELETE_FOOD_STUFF = '[FoodStuff Card] Delete food stuff',
   DELETE_FOOD_STUFF_CONFIRMATION = '[FoodStuff Card] Delete food stuff confirmation modal',
   DELETE_FOOD_STUFF_SUCCESS = '[FoodStuff Card] Delete food stuff success',
-  DELETE_FOOD_STUFF_FAIL = '[FoodStuff Card] Delete food stuff fail'
+  DELETE_FOOD_STUFF_FAIL = '[FoodStuff Card] Delete food stuff fail',
 }
 
 export const setFoodStuffActive = createAction(
@@ -41,7 +41,7 @@ export const loadFoodsStuff = createAction(
 );
 export const loadFoodsStuffSuccess = createAction(
   FoodStuffCardActionsType.LOAD_FOOD_STUFF_SUCCESS,
-  props<{ foodsStuff: FoodStuff[] }>()
+  props<{ foodsStuff: FoodStuffModel[] }>()
 );
 export const loadFoodsStuffFail = createAction(
   FoodStuffCardActionsType.LOAD_FOOD_STUFF_FAIL,
@@ -49,11 +49,11 @@ export const loadFoodsStuffFail = createAction(
 );
 export const editFoodStuff = createAction(
   FoodStuffCardActionsType.EDIT_FOOD_STUFF,
-  props<{ foodStuff: FoodStuff }>()
+  props<{ foodStuff: FoodStuffModel }>()
 );
 export const editFoodStuffSuccess = createAction(
   FoodStuffCardActionsType.EDIT_FOOD_STUFF_SUCCESS,
-  props<{ foodStuff: FoodStuff }>()
+  props<{ foodStuff: FoodStuffModel }>()
 );
 export const editFoodStuffFail = createAction(
   FoodStuffCardActionsType.EDIT_FOOD_STUFF_FAIL,
@@ -61,15 +61,15 @@ export const editFoodStuffFail = createAction(
 );
 export const deleteFoodStuff = createAction(
   FoodStuffCardActionsType.DELETE_FOOD_STUFF,
-  props<{ foodStuff: FoodStuff }>()
+  props<{ foodStuff: FoodStuffModel }>()
 );
 export const deleteFoodStuffConfirmation = createAction(
   FoodStuffCardActionsType.DELETE_FOOD_STUFF_CONFIRMATION,
-  props<{ foodStuff: FoodStuff }>()
+  props<{ foodStuff: FoodStuffModel }>()
 );
 export const deleteFoodStuffSuccess = createAction(
   FoodStuffCardActionsType.DELETE_FOOD_STUFF_SUCCESS,
-  props<{ foodStuff: FoodStuff }>()
+  props<{ foodStuff: FoodStuffModel }>()
 );
 export const deleteFoodStuffFail = createAction(
   FoodStuffCardActionsType.DELETE_FOOD_STUFF_FAIL,

@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { first, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import * as firebase from 'firebase/app';
-import { FoodStuff } from '../models/food.model';
+import { FoodExpirationTypeModel, FoodGroupModel, FoodStoragePlaceModel, FoodStuffModel } from '../models/food.model';
 
 
 const unsplashSearchPhotosAPI = 'https://api.unsplash.com/search/photos';
@@ -23,9 +23,30 @@ export class FridgeService {
 
   getFoodsStuff() {
     return this.firestore
-      .collection<FoodStuff>('FoodStuff')
+      .collection<FoodStuffModel>('FoodStuff')
       .valueChanges({ idField: 'id' });
   }
+
+  getFoodExpirationTypes(): Observable<FoodExpirationTypeModel[]> {
+    return this.firestore
+      .collection<FoodExpirationTypeModel>('FoodExpirationType')
+      .valueChanges({ idField: 'id' })
+      .pipe(first());
+  }
+
+  getFoodGroups(): Observable<FoodGroupModel[]> {
+    return this.firestore
+      .collection<FoodGroupModel>('FoodGroup')
+      .valueChanges({ idField: 'id' })
+      .pipe(first());
+  }
+
+  getFoodStoragePlaces(): Observable<FoodStoragePlaceModel[]> {
+    return this.firestore
+      .collection<FoodStoragePlaceModel>('FoodStoragePlace')
+      .valueChanges({ idField: 'id' })
+      .pipe(first());
+    }
 
   getProductStuffImages(keyword: string): Observable<any> {
     const url = `${this.getUnsplashURLWithClientId()}&query=${keyword}`;

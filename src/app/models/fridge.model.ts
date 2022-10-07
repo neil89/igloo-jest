@@ -1,6 +1,6 @@
-import { FoodStuff } from './food.model';
+import { FoodStuffModel } from './food.model';
 
 export interface Fridge {
-  foodStuffList: FoodStuff[];
-  activeFoodStuff: FoodStuff;
+  foodStuffList: FoodStuffModel[];
+  activeFoodStuff: FoodStuffModel;
 }

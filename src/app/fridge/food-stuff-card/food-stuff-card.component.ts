@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import SwiperCore, { Autoplay, Keyboard, Pagination, Scrollbar, Zoom, EffectFlip } from 'swiper';
 
-import { FoodStuff } from 'src/app/models/food.model';
+import { FoodStuffModel } from 'src/app/models/food.model';
 import { FridgeActions } from '../store';
 
 SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom, EffectFlip]);
@@ -15,7 +15,7 @@ SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom, EffectFlip]);
 })
 export class FoodStuffCardComponent implements OnInit {
 
-  @Input() public item: FoodStuff;
+  @Input() public item: FoodStuffModel;
   public isOpenEditFoodStuff = false;
 
   /*

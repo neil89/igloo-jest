@@ -1,4 +1,4 @@
-export interface FoodStuff {
+export interface FoodStuffModel {
   id: string;
   amount: number;
   units: UnitsOfMeasure;
@@ -32,13 +32,28 @@ export type FoodGroup =
   'Cleaning' |
   'Pets';
 
+export interface FoodGroupModel {
+  name: FoodGroupModel;
+}
+
 export type FoodExpirationType =
   'Imperisable' |
   'Long-lasting' |
   'Short-lasting' |
   'Day-lasting';
 
-  export type FoodStoragePlace =
-  'Pantry' |  // Ambient temperature
-  'Fridge' |  // 4º-5º
-  'Freezer';  // -18º
+export interface FoodExpirationTypeModel {
+  name: FoodExpirationType;
+  lowRange: number;
+  highRange: number;
+}
+
+export type FoodStoragePlace =
+'Pantry' |  // Ambient temperature (20)
+'Fridge' |  // 4º-5º
+'Freezer';  // -18º
+
+export interface FoodStoragePlaceModel {
+  name: FoodStoragePlace;
+  temperature: number;
+}

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FoodStuff } from 'src/app/models/food.model';
+import { FoodStuffModel } from 'src/app/models/food.model';
 import { FridgeActions } from '../store';
 
 @Component({
@@ -10,7 +10,7 @@ import { FridgeActions } from '../store';
 })
 export class DetailFoodStuffComponent implements OnInit {
 
-  @Input() public item: FoodStuff;
+  @Input() public item: FoodStuffModel;
   public isEditing = false;
 
   constructor(

@@ -10,9 +10,20 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <p>
-    Food selected is {{ activeFood$ | async }}
-  </p>
+  <div style="display: flex; flex-flow: column nowrap;">
+    <span>
+      <b>Food selected is</b> {{ activeFood$ | async }}
+    </span>
+    <span>
+      <b>Food expiration types:</b> {{ foodExpirationTypes$ | async | json }}
+    </span>
+    <span>
+      <b>Food groups:</b> {{ foodGroups$ | async | json }}
+    </span>
+    <span>
+      <b>Food storage places:</b> {{ foodStoragePlaces$ | async | json }}
+    </span>
+  </div>
   <div id="container">
     <ion-grid>
       <ion-row class="ion-justify-content-center">

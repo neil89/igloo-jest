@@ -2,9 +2,23 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 
-import { FoodStuff } from '../../models/food.model';
 import { FridgeService } from '../fridge.service';
-import { FridgeActions, selectActiveFoodStuff, selectFoodsStuffList, selectOpenDetailFoodStuff } from '../store';
+import {
+  FoodExpirationTypeModel,
+  FoodGroupModel,
+  FoodStoragePlaceModel,
+  FoodStuffModel
+} from '../../models/food.model';
+import {
+  FoodCollectionsActions,
+  FridgeActions,
+  selectActiveFoodStuff,
+  selectFoodExpirationTypes,
+  selectFoodGroups,
+  selectFoodsStuffList,
+  selectFoodStoragePlaces,
+  selectOpenDetailFoodStuff
+} from '../store';
 
 
 @Component({
@@ -15,11 +29,15 @@ import { FridgeActions, selectActiveFoodStuff, selectFoodsStuffList, selectOpenD
 
 export class FridgeComponent implements OnInit, OnDestroy {
 
-  public items: FoodStuff[] = [];
-  public items$: Observable<FoodStuff[]> = null;
+  public items: FoodStuffModel[] = [];
+  public items$: Observable<FoodStuffModel[]> = null;
   public imgSrc: string[] = [];
   public activeFood$;
   public openFoodStuffDetails$;
+
+  public foodExpirationTypes$: Observable<FoodExpirationTypeModel[]> = null;
+  public foodGroups$: Observable<FoodGroupModel[]> = null;
+  public foodStoragePlaces$: Observable<FoodStoragePlaceModel[]> = null;
 
   private readonly clearSubscriptions$: Subject<void> = new Subject();
 
@@ -31,6 +49,8 @@ export class FridgeComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.activeFood$ = this.store.select(selectActiveFoodStuff);
     this.openFoodStuffDetails$ = this.store.select(selectOpenDetailFoodStuff);
+
+    this.initializeFoodModels();
 /*
     this.openFoodStuffDetails$.subscribe( r => {
       console.log(r);
@@ -99,5 +119,31 @@ export class FridgeComponent implements OnInit, OnDestroy {
 
     // this.items.push(peppers);
     // this.items.push(ham);
+  }
+
+  private initializeFoodModels() {
+    this.store.dispatch(FoodCollectionsActions.loadAllFoodCollections());
+
+    this.foodExpirationTypes$ = this.store.select(selectFoodExpirationTypes);
+    this.foodGroups$ = this.store.select(selectFoodGroups);
+    this.foodStoragePlaces$ = this.store.select(selectFoodStoragePlaces);
+    // this.initializeFoodExpirationTypes();
+    // this.initializeFoodGroups();
+    // this.initializeFoodStoragePlaces();
+  }
+
+  private initializeFoodExpirationTypes() {
+    this.store.dispatch(FoodCollectionsActions.loadFoodExpirationType());
+    this.foodExpirationTypes$ = this.store.select(selectFoodExpirationTypes);
+  }
+
+  private initializeFoodGroups() {
+    this.store.dispatch(FoodCollectionsActions.loadFoodGroup());
+    this.foodGroups$ = this.store.select(selectFoodGroups);
+  }
+
+  private initializeFoodStoragePlaces() {
+    this.store.dispatch(FoodCollectionsActions.loadFoodStoragePlace());
+    this.foodStoragePlaces$ = this.store.select(selectFoodStoragePlaces);
   }
 }
