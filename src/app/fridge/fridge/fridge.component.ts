@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
+import { combineLatest, forkJoin, Observable, Subject } from 'rxjs';
 
 import { FridgeService } from '../fridge.service';
 import {
   FoodExpirationTypeModel,
   FoodGroupModel,
   FoodStoragePlaceModel,
-  FoodStuffModel
+  FoodStuffExpandedModel
 } from '../../models/food.model';
 import {
   FoodCollectionsActions,
@@ -15,10 +15,12 @@ import {
   selectActiveFoodStuff,
   selectFoodExpirationTypes,
   selectFoodGroups,
+  selectFoodsStuffExpandedList,
   selectFoodsStuffList,
   selectFoodStoragePlaces,
   selectOpenDetailFoodStuff
 } from '../store';
+import { takeUntil } from 'rxjs/operators';
 
 
 @Component({
@@ -29,15 +31,18 @@ import {
 
 export class FridgeComponent implements OnInit, OnDestroy {
 
-  public items: FoodStuffModel[] = [];
-  public items$: Observable<FoodStuffModel[]> = null;
+  public items: FoodStuffExpandedModel[] = [];
+  public items$: Observable<FoodStuffExpandedModel[]> = null;
   public imgSrc: string[] = [];
   public activeFood$;
   public openFoodStuffDetails$;
 
-  public foodExpirationTypes$: Observable<FoodExpirationTypeModel[]> = null;
-  public foodGroups$: Observable<FoodGroupModel[]> = null;
-  public foodStoragePlaces$: Observable<FoodStoragePlaceModel[]> = null;
+  // public foodExpirationTypes$: Observable<FoodExpirationTypeModel[]> = null;
+  // public foodGroups$: Observable<FoodGroupModel[]> = null;
+  // public foodStoragePlaces$: Observable<FoodStoragePlaceModel[]> = null;
+  public foodExpirationTypes: FoodExpirationTypeModel[];
+  public foodGroups: FoodGroupModel[];
+  public foodStoragePlaces: FoodStoragePlaceModel[];
 
   private readonly clearSubscriptions$: Subject<void> = new Subject();
 
@@ -50,14 +55,13 @@ export class FridgeComponent implements OnInit, OnDestroy {
     this.activeFood$ = this.store.select(selectActiveFoodStuff);
     this.openFoodStuffDetails$ = this.store.select(selectOpenDetailFoodStuff);
 
-    this.initializeFoodModels();
-/*
-    this.openFoodStuffDetails$.subscribe( r => {
-      console.log(r);
-      openViewDetailModal
-    });*/
+    //this.initializeFoodModels();
+    this.store.dispatch(FridgeActions.loadFoodsStuffExpanded());
+    this.items$ = this.store.select(selectFoodsStuffExpandedList);
 
-    this.getItems();
+    this.fridgeService.getFoodsStuffExpanded().subscribe(res => {
+      const r = res;
+    });
   }
 
   public ngOnDestroy(): void {
@@ -70,7 +74,7 @@ export class FridgeComponent implements OnInit, OnDestroy {
   }
 
 
-  private getItems() {
+  private loadFoodStuffItems() {
 
     // const peppers: FoodStuff = {
     //   id: '1',
@@ -108,7 +112,32 @@ export class FridgeComponent implements OnInit, OnDestroy {
     //     }
     // });
     this.store.dispatch(FridgeActions.loadFoodsStuff());
-    this.items$ = this.store.select(selectFoodsStuffList);
+    //this.items$ = this.store.select(selectFoodsStuffList);
+
+
+    // eslint-disable-next-line @ngrx/no-store-subscription
+    this.store.select(selectFoodsStuffList)
+      .pipe(takeUntil(this.clearSubscriptions$))
+      .subscribe(foodsList => {
+        if( !!foodsList && foodsList.length > 0 ) {
+          this.items = [];
+          foodsList.forEach( f => {
+            this.items.push({
+              id: f.id,
+              amount: f.amount,
+              units: f.units,
+              name: f.name,
+              group: this.foodGroups.find(g => g.id === f.group),
+              expirationType: this.foodExpirationTypes.find(fEx => fEx.id === f.expirationType),
+              expirationDate: f.expirationDate,
+              expirationDateEstimated: f.expirationDateEstimated,
+              storagedIn: this.foodStoragePlaces.find(fSt => fSt.id === f.storagedIn ),
+              creationDate: f.creationDate,
+              lastEditDate: f.lastEditDate
+            } as FoodStuffExpandedModel);
+          });
+        }
+    });
 
 
 
@@ -122,28 +151,53 @@ export class FridgeComponent implements OnInit, OnDestroy {
   }
 
   private initializeFoodModels() {
+
+    // forkJoin(
+    //   {
+    //     foodExpirationTypes: this.store.select(selectFoodExpirationTypes),
+    //     foodGroups: this.store.select(selectFoodGroups),
+    //     foodStoragePlaces: this.store.select(selectFoodStoragePlaces)
+    //   }
+    // ).subscribe( res => {
+    combineLatest([
+      this.store.select(selectFoodExpirationTypes),
+      this.store.select(selectFoodGroups),
+      this.store.select(selectFoodStoragePlaces)
+    ])
+    .subscribe( res => {
+      if( res[0].length > 0 &&
+        res[1].length > 0 &&
+        res[2].length > 0 ) {
+
+        this.foodExpirationTypes = res[0];
+        this.foodGroups = res[1];
+        this.foodStoragePlaces = res[2];
+
+        this.loadFoodStuffItems();
+      }
+    });
+
     this.store.dispatch(FoodCollectionsActions.loadAllFoodCollections());
 
-    this.foodExpirationTypes$ = this.store.select(selectFoodExpirationTypes);
-    this.foodGroups$ = this.store.select(selectFoodGroups);
-    this.foodStoragePlaces$ = this.store.select(selectFoodStoragePlaces);
-    // this.initializeFoodExpirationTypes();
-    // this.initializeFoodGroups();
-    // this.initializeFoodStoragePlaces();
+    // this.store.select(selectFoodExpirationTypes)
+    //   .pipe(takeUntil(this.clearSubscriptions$))
+    //   .subscribe(foodET => {
+    //     this.foodExpirationTypes = foodET;
+    // });
+    // this.store.select(selectFoodGroups)
+    //   .pipe(takeUntil(this.clearSubscriptions$))
+    //   .subscribe(foodG => {
+    //     this.foodGroups = foodG;
+    // });
+    // this.store.select(selectFoodStoragePlaces)
+    //   .pipe(takeUntil(this.clearSubscriptions$))
+    //   .subscribe(foodSP => {
+    //     this.foodStoragePlaces = foodSP;
+    // });
+
+    // this.foodExpirationTypes$ = this.store.select(selectFoodExpirationTypes);
+    // this.foodGroups$ = this.store.select(selectFoodGroups);
+    // this.foodStoragePlaces$ = this.store.select(selectFoodStoragePlaces);
   }
 
-  private initializeFoodExpirationTypes() {
-    this.store.dispatch(FoodCollectionsActions.loadFoodExpirationType());
-    this.foodExpirationTypes$ = this.store.select(selectFoodExpirationTypes);
-  }
-
-  private initializeFoodGroups() {
-    this.store.dispatch(FoodCollectionsActions.loadFoodGroup());
-    this.foodGroups$ = this.store.select(selectFoodGroups);
-  }
-
-  private initializeFoodStoragePlaces() {
-    this.store.dispatch(FoodCollectionsActions.loadFoodStoragePlace());
-    this.foodStoragePlaces$ = this.store.select(selectFoodStoragePlaces);
-  }
 }

@@ -1,12 +1,33 @@
-export interface FoodStuffModel {
+export interface FoodStuffFSDocumentModel {
   id: string;
   amount: number;
   units: UnitsOfMeasure;
   name: string;
   group: FoodGroup;
   expirationType: FoodExpirationType;
+  expirationDateEstimated?: Date | null;
   expirationDate?: Date | null;
   storagedIn: FoodStoragePlace;
+  creationDate: Date;
+  lastEditDate: Date;
+  remainingAmount?: number | null;
+  remainingExpirationDate?: Date | null;
+}
+
+export interface FoodStuffExpandedModel {
+  id: string;
+  amount: number;
+  units: UnitsOfMeasure;
+  name: string;
+  group: FoodGroupModel;
+  expirationType: FoodExpirationTypeModel;
+  expirationDateEstimated?: Date | null;
+  expirationDate?: Date | null;
+  storagedIn: FoodStoragePlaceModel;
+  creationDate: Date;
+  lastEditDate: Date;
+  remainingAmount?: number | null;
+  remainingExpirationDate?: Date | null;
 }
 
 // Pluralize-es for plural when UnitsOfMeasure is units ??
@@ -20,40 +41,43 @@ export type UnitsOfMeasure =
   'bottle';
 
 export type FoodGroup =
-  'Vegetables' |
-  'Sauces' |
-  'Bread' |
-  'Dairy' |
-  'Meat' |
-  'Fish' |
-  'Frozen' |
-  'Vegetarian' |
-  'Snacks' |
-  'Cleaning' |
-  'Pets';
+  'vegetables' |
+  'sauces' |
+  'bread' |
+  'dairy' |
+  'meat' |
+  'fish' |
+  'frozen' |
+  'vegetarian' |
+  'snacks' |
+  'cleaning' |
+  'pets';
 
 export interface FoodGroupModel {
+  id: string;
   name: FoodGroupModel;
 }
 
 export type FoodExpirationType =
-  'Imperisable' |
-  'Long-lasting' |
-  'Short-lasting' |
-  'Day-lasting';
+  'imperisable' |
+  'long-lasting' |
+  'short-lasting' |
+  'day-lasting';
 
 export interface FoodExpirationTypeModel {
+  id: string;
   name: FoodExpirationType;
   lowRange: number;
   highRange: number;
 }
 
 export type FoodStoragePlace =
-'Pantry' |  // Ambient temperature (20)
-'Fridge' |  // 4º-5º
-'Freezer';  // -18º
+'pantry' |  // Ambient temperature (20)
+'fridge' |  // 4º-5º
+'freezer';  // -18º
 
 export interface FoodStoragePlaceModel {
+  id: string;
   name: FoodStoragePlace;
   temperature: number;
 }

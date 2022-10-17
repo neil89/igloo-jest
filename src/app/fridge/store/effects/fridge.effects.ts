@@ -40,6 +40,27 @@ export class FridgeEffects {
     )
   });
 
+  loadFoodsStuffExpanded$ = createEffect(() => {
+    return this.actions$
+    .pipe(
+      ofType(FridgeActions.loadFoodsStuffExpanded),
+      mergeMap(() => this.fridgeService.getFoodsStuffExpanded()
+        .pipe(
+          map(foodsStuffExpanded => FridgeActions.loadFoodsStuffExpandedSuccess({ foodsStuffExpanded })),
+          catchError(error => {
+            const customError = {
+              code: undefined,
+              httpErrorCode: 0,
+              httpErrorMessage: error,
+              humanizedErrorMessage: error
+            } as CustomError;
+            return of(FridgeActions.loadFoodsStuffExpandedFail({ error: customError }))
+          })
+        )
+      )
+    )
+  });
+
 
   /// FRIDGE COLLECTIONS EFFECTS
   loadFoodExpirationType$ = createEffect(() => {

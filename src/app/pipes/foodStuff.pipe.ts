@@ -30,6 +30,11 @@ export class FoodStuffUnitsOfMeasure implements PipeTransform {
 @Pipe({ name: 'foodStuffGroup' })
 export class FoodStuffGroup implements PipeTransform {
   transform(value: FoodGroup): string {
+
+    if( !value ) {
+      return;
+    }
+
     switch(value.toLowerCase()) {
       case 'vegetables':
         return 'Frutas y verduras';
@@ -60,6 +65,11 @@ export class FoodStuffGroup implements PipeTransform {
 @Pipe({ name: 'foodStuffExpirationType'})
 export class FoodStuffExpirationType implements PipeTransform {
   transform(value: FoodExpirationType): string {
+
+    if( !value ) {
+      return;
+    }
+
     switch(value.toLowerCase()) {
       case 'imperisable':
         return 'Imperecedero';
@@ -76,24 +86,29 @@ export class FoodStuffExpirationType implements PipeTransform {
 @Pipe({ name: 'foodStuffExpirationTypeWithEstimatedDate'})
 export class FoodStuffExpirationTypeWithEstimatedDate implements PipeTransform {
   transform(value: FoodExpirationType): string {
+
+    if( !value ) {
+      return;
+    }
+
     const today = new Date();
     let translation = '';
 
     switch(value.toLowerCase()) {
       case 'imperisable':
-        today.setDate(today.getDate()+ 60);
+        today.setDate(today.getDate() + 60);
         translation = 'Imperecedero';
         break;
       case 'long-lasting':
-        today.setDate(today.getDate()+ 21);
+        today.setDate(today.getDate() + 21);
         translation = 'Larga';
         break;
       case 'short-lasting':
-        today.setDate(today.getDate()+ 7);
+        today.setDate(today.getDate() + 7);
         translation = 'Corta';
         break;
       case 'day-lasting':
-        today.setDate(today.getDate()+ 2);
+        today.setDate(today.getDate() + 2);
         translation = 'En el día';
         break;
     }
@@ -105,6 +120,11 @@ export class FoodStuffExpirationTypeWithEstimatedDate implements PipeTransform {
 @Pipe({ name: 'foodStuffStorage'})
 export class FoodStuffStorage implements PipeTransform {
   transform(value: FoodStoragePlace): string {
+
+    if( !value ) {
+      return;
+    }
+
     switch(value.toLowerCase()) {
       case 'pantry':
         return 'Despensa';

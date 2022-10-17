@@ -19,6 +19,7 @@ import { fridgeReducer } from './store/reducers/fridge.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { FridgeEffects } from './store/effects/fridge.effects';
 import { DetailFoodStuffComponent } from './detail-food-stuff/detail-food-stuff.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 const pipes = [
@@ -39,6 +40,7 @@ const pipes = [
   imports: [
     SharedModule,
     FridgeRoutingModule,
+    ReactiveFormsModule,
     IonicModule.forRoot(),
     StoreModule.forFeature('fridge', fridgeReducer),
     EffectsModule.forFeature([FridgeEffects])

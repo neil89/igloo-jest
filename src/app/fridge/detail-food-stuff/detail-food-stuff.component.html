@@ -16,20 +16,42 @@
       <img src="/assets/images/no-food-stuff-placeholder.png">
     </ion-col>
     <ion-col class="col-form" size="8">
-      <div>
-        <img [src]="'assets/icon/food-stuff-groups/'+item.group.toLowerCase()+'_placeholder.png'"/>
-        <ion-item>
-          <ion-label position="floating">Grupo</ion-label>
-          <ion-input type="text" clearInput [value]="item.group | foodStuffGroup"></ion-input>
-        </ion-item>
-      </div>
-      <div>
-        <img [src]="'assets/icon/food-stuff-groups/'+item.group.toLowerCase()+'_placeholder.png'"/>
-        <ion-item>
-          <ion-label position="floating">Grupo</ion-label>
-          <ion-input type="text" clearInput [value]="item.group"></ion-input>
-        </ion-item>
-      </div>
+      <form [formGroup]="detailFoodForm">
+        <div>
+          <!-- SRC: assets/icon/food-stuff-groups/{{item.group.name.toString()}}/ -->
+          {{item | json}}
+          <!-- <img [src]="'assets/icon/food-stuff-groups/'+item.group.toLowerCase()+'_placeholder.png'"/> -->
+          <ion-item>
+            <!-- <ion-label position="floating">Grupo</ion-label> -->
+            <ion-list>
+              <ion-item>
+                <ion-select
+                  formControlName="group"
+                  interface="popover"
+                  placeholder="Selecciona grupo"
+                  [value]="item.group"
+                  [compareWith]="foodGroupsCompareWith"
+                  (ionChange)="foodGroupsChange($event)"
+                >
+                  <ion-select-option
+                    *ngFor="let g of foodGroups$ | async"
+                    [value]="g.name"
+                  >
+                    {{g.name | foodStuffGroup}}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+          </ion-item>
+        </div>
+        <div>
+          <!-- <img [src]="'assets/icon/food-stuff-groups/'+item.group.toLowerCase()+'_placeholder.png'"/> -->
+          <ion-item>
+            <ion-label position="floating">Grupo</ion-label>
+            <ion-input type="text" clearInput [value]="item.group"></ion-input>
+          </ion-item>
+        </div>
+      </form>
     </ion-col>
   </ion-row>
 
@@ -39,6 +61,15 @@
     <ion-input type="text" disabled="true" readonly="true">{{item.group | foodStuffGroup}}</ion-input>
   </ion-item> -->
 </ion-content>
+
+<div>
+  <p>{{ getName | json }}</p>
+  <p>{{ getUnits | json }}</p>
+  <p>{{ getGroup | json }}</p>
+  <p>{{ getExpirationType | json }}</p>
+  <p>{{ getExpirationDate | json }}</p>
+  <p>{{ getStoragedIn | json }}</p>
+</div>
 
 <!--
 <ion-card

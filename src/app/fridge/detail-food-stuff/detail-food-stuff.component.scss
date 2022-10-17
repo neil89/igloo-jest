@@ -1,17 +1,38 @@
+:host {
+  --ion-item-background: var(--ion-item-background);
+}
+
+::ng-deep {
+  & ion-item :host-context(.item-label-floating:not(.item-fill-outline)) .select-icon {
+    transform: none;
+  }
+}
+
 ion-content {
 
   & ion-col.col-form {
 
     & > div {
+      align-items: center;
+      background-color: var(--ion-item-background);
       display: flex;
       flex-flow: row nowrap;
       justify-content: start;
-      align-items: center;
+      padding: 1em;
 
       & > ion-item {
         display: flex;
         flex-flow: column;
         justify-content: start;
+        width: 100%;
+
+        & > ion-label+ion-list {
+          margin-top: 20px
+        }
+
+        & ion-list {
+          padding: 0;
+        }
       }
     }
   }

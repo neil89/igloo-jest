@@ -9,6 +9,11 @@ export const selectFoodsStuffList = createSelector(
   state => state.foodsStuffList
 );
 
+export const selectFoodsStuffExpandedList = createSelector(
+  selectFridgeDataFeatureState,
+  state => state.foodStuffExpandedList
+);
+
 export const selectActiveFoodStuff = createSelector(
   selectFridgeDataFeatureState,
   state => state.activeFoodStuff

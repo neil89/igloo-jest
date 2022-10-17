@@ -18,7 +18,7 @@
       <ng-template swiperSlide>
         <img src="/assets/images/no-food-stuff-placeholder.png">
         <div class="food-stuff-group-container">
-          <img [src]="'assets/icon/food-stuff-groups/'+item.group.toLowerCase()+'_placeholder.png'"/>
+          <img [src]="'assets/icon/food-stuff-groups/'+item.group.name+'_placeholder.png'"/>
         </div>
         <main>
           <ion-card-title>
@@ -42,18 +42,19 @@
             <!-- <ion-icon name="calendar-clear-outline"></ion-icon> -->
             <span>Caducidad:</span>
             <span [ngClass]="{
-              'expirationTypeGreen': item.expirationType.toLowerCase() === 'imperisable',
-              'expirationTypeLime': item.expirationType.toLowerCase() === 'long-lasting',
-              'expirationTypeYellow': item.expirationType.toLowerCase() === 'short-lasting',
-              'expirationTypeRed': item.expirationType.toLowerCase() === 'day-lasting'
+              'expirationTypeGreen': item.expirationType?.name === 'imperisable',
+              'expirationTypeLime': item.expirationType?.name === 'long-lasting',
+              'expirationTypeYellow': item.expirationType?.name === 'short-lasting',
+              'expirationTypeRed': item.expirationType?.name === 'day-lasting'
             }">
-              {{item.expirationType | foodStuffExpirationTypeWithEstimatedDate}}
+              <!-- {{item.expirationType?.name | foodStuffExpirationTypeWithEstimatedDate}} -->
+              {{item.expirationDateEstimated | formatDateES}}
             </span>
           </div>
           <div class="foodStoragePlace">
             <span>Almacenado en:</span>
             <!-- <img [src]="'assets/icon/'+item.storagedIn.toLowerCase()+'.png'"/> -->
-            <span>{{item.storagedIn | foodStuffStorage}}</span>
+            <span>{{item.storagedIn.name | foodStuffStorage}}</span>
           </div>
         </div>
         <!-- <p>Cantidad: {{item.units | foodStuffUnitsOfMeasure : item.amount }}</p>

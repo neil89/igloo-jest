@@ -1,12 +1,19 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { FoodExpirationTypeModel, FoodGroup, FoodGroupModel, FoodStoragePlaceModel, FoodStuffModel } from 'src/app/models/food.model';
+import {
+  FoodExpirationTypeModel,
+  FoodGroupModel,
+  FoodStoragePlaceModel,
+  FoodStuffExpandedModel,
+  FoodStuffFSDocumentModel
+} from 'src/app/models/food.model';
 import { CustomError } from 'src/app/models/error.model';
 import { FoodCollectionsActions, FridgeActions } from '../actions';
 
 export interface FridgeState {
-  foodsStuffList: FoodStuffModel[];
-  activeFoodStuff: FoodStuffModel;
+  foodsStuffList: FoodStuffFSDocumentModel[];
+  foodStuffExpandedList: FoodStuffExpandedModel[];
+  activeFoodStuff: FoodStuffExpandedModel;
   viewDetailFoodStuff: boolean;
   editFoodStuff: boolean;
   error: CustomError;
@@ -17,6 +24,7 @@ export interface FridgeState {
 
 const initialFridgeState: FridgeState = {
   foodsStuffList: [],
+  foodStuffExpandedList: [],
   activeFoodStuff: null,
   viewDetailFoodStuff: false,
   editFoodStuff: false,
@@ -31,7 +39,7 @@ export const fridgeReducer = createReducer<FridgeState>(
   initialFridgeState,
   /// FRIDGE ACTIONS
   on(FridgeActions.setFoodStuffActive, (state, action): FridgeState => {
-    const food = state.foodsStuffList.find( f => f.id === action.foodId );
+    const food = state.foodStuffExpandedList.find( f => f.id === action.foodId );
     return {
       ...state,
       activeFoodStuff: food
@@ -50,6 +58,18 @@ export const fridgeReducer = createReducer<FridgeState>(
     })
   ),
   on(FridgeActions.loadFoodsStuffFail, (state, action): FridgeState => (
+    {
+      ...state,
+      error: action.error
+    })
+  ),
+  on(FridgeActions.loadFoodsStuffExpandedSuccess, (state, action): FridgeState => (
+    {
+      ...state,
+      foodStuffExpandedList: action.foodsStuffExpanded
+    })
+  ),
+  on(FridgeActions.loadFoodsStuffExpandedFail, (state, action): FridgeState => (
     {
       ...state,
       error: action.error
