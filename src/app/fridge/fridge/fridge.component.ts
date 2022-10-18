@@ -47,21 +47,15 @@ export class FridgeComponent implements OnInit, OnDestroy {
   private readonly clearSubscriptions$: Subject<void> = new Subject();
 
   constructor(
-    private store: Store,
-    private fridgeService: FridgeService
+    private store: Store
   ) { }
 
   public ngOnInit(): void {
     this.activeFood$ = this.store.select(selectActiveFoodStuff);
     this.openFoodStuffDetails$ = this.store.select(selectOpenDetailFoodStuff);
 
-    //this.initializeFoodModels();
     this.store.dispatch(FridgeActions.loadFoodsStuffExpanded());
     this.items$ = this.store.select(selectFoodsStuffExpandedList);
-
-    this.fridgeService.getFoodsStuffExpanded().subscribe(res => {
-      const r = res;
-    });
   }
 
   public ngOnDestroy(): void {

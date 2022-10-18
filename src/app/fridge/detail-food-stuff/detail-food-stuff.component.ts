@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
@@ -34,7 +34,8 @@ export class DetailFoodStuffComponent implements OnInit {
 
   constructor(
     private readonly store: Store,
-    private readonly fb: FormBuilder
+    private readonly fb: FormBuilder,
+    private readonly cd: ChangeDetectorRef
   ) { }
 
   public get getName(): FormControl<string> {
@@ -57,9 +58,22 @@ export class DetailFoodStuffComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(FoodCollectionsActions.loadAllFoodCollections());
+//    this.store.dispatch(FoodCollectionsActions.loadAllFoodCollections());
     this.foodExpirationTypes$ = this.store.select(selectFoodExpirationTypes);
     this.foodGroups$ = this.store.select(selectFoodGroups);
+    // this.foodGroups$ = [
+    //   { name: 'bread', id: 'food-group-bread' },
+    //   { name: 'cleaning', id: 'food-group-cleaning' },
+    //   { name: 'dairy', id: 'food-group-dairy' },
+    //   { name: 'fish', id: 'food-group-fish' },
+    //   { name: 'frozen', id: 'food-group-frozen' },
+    //   { name: 'meat', id: 'food-group-meat' },
+    //   { name: 'pets', id: 'food-group-pets' },
+    //   { name: 'sauces', id: 'food-group-sauces' },
+    //   { name: 'snacks', id: 'food-group-snacks' },
+    //   { name: 'vegetables', id: 'food-group-vegetables' },
+    //   { name: 'vegetarian', id: 'food-group-vegetarian' }
+    // ];
     this.foodStoragePlaces$ = this.store.select(selectFoodStoragePlaces);
 
     this.detailFoodForm = this.fb.group<DetailFoodForm>({
@@ -70,18 +84,30 @@ export class DetailFoodStuffComponent implements OnInit {
       expirationDate: new FormControl(this.item.expirationDate),
       storagedIn: new FormControl(this.item.storagedIn, {nonNullable: true})
     });
+
   }
+
 
   public closeModal(ev) {
     this.store.dispatch(FridgeActions.closeDetailFoodStuff());
   }
 
   public foodGroupsCompareWith(g1, g2) {
-    return g1.toLowerCase() === g2.toLowerCase();
+    console.log(`Compare ${g1.name} - ${g2.name}`);
+    return g1.name === g2.name;
+  }
+
+  public foodExpirationTypesCompareWith(et1, et2) {
+    console.log(`Compare ${et1.name} - ${et2.name}`);
+    return et1.name === et2.name;
   }
 
   public foodGroupsChange(evt) {
     this.detailFoodForm.patchValue({ group: evt.target.value });
+  }
+
+  public foodExpirationTypeChange(evt) {
+    this.detailFoodForm.patchValue({ expirationType: evt.target.value });
   }
 
 }

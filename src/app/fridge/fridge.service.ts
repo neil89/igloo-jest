@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { combineLatest, Observable, of } from 'rxjs';
-import { first, map, switchMap, tap } from 'rxjs/operators';
+import { combineLatest, from, Observable, of } from 'rxjs';
+import { first, last, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import * as firebase from 'firebase/firestore';
 import {
@@ -13,7 +13,7 @@ import {
   FoodStuffExpandedModel,
   FoodExpirationType
 } from '../models/food.model';
-import { Timestamp } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query, Timestamp } from 'firebase/firestore';
 
 
 const unsplashSearchPhotosAPI = 'https://api.unsplash.com/search/photos';
@@ -92,23 +92,37 @@ export class FridgeService {
 
   getFoodExpirationTypes(): Observable<FoodExpirationTypeModel[]> {
     return this.firestore
-      .collection<FoodExpirationTypeModel>('FoodExpirationType')
+      .collection<FoodExpirationTypeModel>(
+        'FoodExpirationType',
+        ref => ref.orderBy('lowRange'))
       .valueChanges({ idField: 'id' })
-      .pipe(first());
+      .pipe(
+        first(),
+        shareReplay(1)
+      );
+    // const foodExpirationTypeRef = collection(this.firestore.firestore, 'FoodExpirationType');
+    // const q = query(foodExpirationTypeRef, orderBy('lowRange', 'desc'));
+    // return from(getDocs(q).get());
   }
 
   getFoodGroups(): Observable<FoodGroupModel[]> {
     return this.firestore
       .collection<FoodGroupModel>('FoodGroup')
       .valueChanges({ idField: 'id' })
-      .pipe(first());
+      .pipe(
+        first(),
+        shareReplay(1)
+      );
   }
 
   getFoodStoragePlaces(): Observable<FoodStoragePlaceModel[]> {
     return this.firestore
       .collection<FoodStoragePlaceModel>('FoodStoragePlace')
       .valueChanges({ idField: 'id' })
-      .pipe(first());
+      .pipe(
+        first(),
+        shareReplay(1)
+      );
     }
 
   getProductStuffImages(keyword: string): Observable<any> {

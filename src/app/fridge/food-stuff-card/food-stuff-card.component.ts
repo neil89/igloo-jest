@@ -1,9 +1,10 @@
+/* eslint-disable @ngrx/avoid-dispatching-multiple-actions-sequentially */
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import SwiperCore, { Autoplay, Keyboard, Pagination, Scrollbar, Zoom, EffectFlip } from 'swiper';
 
 import { FoodStuffExpandedModel } from 'src/app/models/food.model';
-import { FridgeActions } from '../store';
+import { FoodCollectionsActions, FridgeActions } from '../store';
 
 SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom, EffectFlip]);
 
@@ -32,7 +33,9 @@ export class FoodStuffCardComponent implements OnInit {
   }
 
   public setActive(ev): void {
+    this.store.dispatch(FoodCollectionsActions.loadAllFoodCollections());
     this.store.dispatch(FridgeActions.setFoodStuffActive({ foodId: this.item.id }));
+
     this.isOpenEditFoodStuff = true;
 
     //this.activeFood = this.store.select(selectActiveFoodStuffName);

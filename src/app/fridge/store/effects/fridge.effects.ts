@@ -1,14 +1,15 @@
 /* eslint-disable arrow-body-style */
-/* eslint-disable @typescript-eslint/semi */
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, mergeMap, map, switchMap, concatMap, delay, exhaustMap, tap } from 'rxjs/operators';
+import { catchError, mergeMap, map, switchMap, delay, first, tap } from 'rxjs/operators';
+
 import { CustomError } from 'src/app/models/error.model';
-import { FoodExpirationType, FoodExpirationTypeModel, FoodGroupModel, FoodStoragePlaceModel } from 'src/app/models/food.model';
+import { FoodExpirationTypeModel, FoodGroupModel, FoodStoragePlaceModel } from 'src/app/models/food.model';
 import { FridgeService } from '../../fridge.service';
 import { FoodCollectionsActions, FridgeActions } from '../actions';
+
 
 @Injectable()
 export class FridgeEffects {
@@ -25,6 +26,7 @@ export class FridgeEffects {
       ofType(FridgeActions.loadFoodsStuff),
       mergeMap(() => this.fridgeService.getFoodsStuff()
         .pipe(
+          first(),
           map(foodsStuff => FridgeActions.loadFoodsStuffSuccess({ foodsStuff })),
           catchError(error => {
             const customError = {
@@ -33,19 +35,20 @@ export class FridgeEffects {
               httpErrorMessage: error,
               humanizedErrorMessage: error
             } as CustomError;
-            return of(FridgeActions.loadFoodsStuffFail({ error: customError }))
+            return of(FridgeActions.loadFoodsStuffFail({ error: customError }));
           })
         )
       )
-    )
+    );
   });
 
   loadFoodsStuffExpanded$ = createEffect(() => {
     return this.actions$
     .pipe(
       ofType(FridgeActions.loadFoodsStuffExpanded),
-      mergeMap(() => this.fridgeService.getFoodsStuffExpanded()
+      switchMap(() => this.fridgeService.getFoodsStuffExpanded()
         .pipe(
+          first(),
           map(foodsStuffExpanded => FridgeActions.loadFoodsStuffExpandedSuccess({ foodsStuffExpanded })),
           catchError(error => {
             const customError = {
@@ -54,11 +57,11 @@ export class FridgeEffects {
               httpErrorMessage: error,
               humanizedErrorMessage: error
             } as CustomError;
-            return of(FridgeActions.loadFoodsStuffExpandedFail({ error: customError }))
+            return of(FridgeActions.loadFoodsStuffExpandedFail({ error: customError }));
           })
         )
       )
-    )
+    );
   });
 
 
@@ -78,11 +81,11 @@ export class FridgeEffects {
               httpErrorMessage: error,
               humanizedErrorMessage: error
             } as CustomError;
-            return of(FoodCollectionsActions.loadFoodExpirationTypeFail({ error: customError }))
+            return of(FoodCollectionsActions.loadFoodExpirationTypeFail({ error: customError }));
           })
         )
       )
-    )
+    );
   });
 
   loadFoodGroups$ = createEffect(() => {
@@ -99,11 +102,11 @@ export class FridgeEffects {
               httpErrorMessage: error,
               humanizedErrorMessage: error
             } as CustomError;
-            return of(FoodCollectionsActions.loadFoodGroupFail({ error: customError }))
+            return of(FoodCollectionsActions.loadFoodGroupFail({ error: customError }));
           })
         )
       )
-    )
+    );
   });
 
   loadFoodStoragePlace$ = createEffect(() => {
@@ -120,31 +123,35 @@ export class FridgeEffects {
               httpErrorMessage: error,
               humanizedErrorMessage: error
             } as CustomError;
-            return of(FoodCollectionsActions.loadFoodStoragePlaceFail({ error: customError }))
+            return of(FoodCollectionsActions.loadFoodStoragePlaceFail({ error: customError }));
           })
         )
       )
-    )
+    );
   });
 
+  // REFACTOR
   loadAllFoodCollections$ = createEffect(() => {
     return this.actions$
     .pipe(
       ofType(FoodCollectionsActions.loadAllFoodCollections),
       mergeMap(() => this.fridgeService.getFoodExpirationTypes()
         .pipe(
+          tap(console.log),
           map( (foodExpirationTypes: FoodExpirationTypeModel[] ) => [foodExpirationTypes])
         )
       ),
       mergeMap(([foodExpirationTypes]: [FoodExpirationTypeModel[]]) =>
         this.fridgeService.getFoodGroups()
         .pipe(
+          tap(console.log),
           map( (foodGroups: FoodGroupModel[]) => [foodExpirationTypes, foodGroups])
         )
       ),
       mergeMap(([foodExpirationTypes, foodGroups]: [FoodExpirationTypeModel[], FoodGroupModel[]]) =>
         this.fridgeService.getFoodStoragePlaces()
         .pipe(
+          tap(console.log),
           map( (foodStoragePlaces: FoodStoragePlaceModel[]) =>
             FoodCollectionsActions.loadAllFoodCollectionsSuccess({
               foodExpirationTypes,
@@ -159,10 +166,10 @@ export class FridgeEffects {
               httpErrorMessage: error,
               humanizedErrorMessage: error
             } as CustomError;
-            return of(FoodCollectionsActions.loadAllFoodCollectionsFail({ error: customError }))
+            return of(FoodCollectionsActions.loadAllFoodCollectionsFail({ error: customError }));
           })
         )
       )
-    )
+    );
   });
 }

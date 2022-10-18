@@ -17,14 +17,17 @@
     </ion-col>
     <ion-col class="col-form" size="8">
       <form [formGroup]="detailFoodForm">
+        {{item | json}}
         <div>
-          <!-- SRC: assets/icon/food-stuff-groups/{{item.group.name.toString()}}/ -->
-          {{item | json}}
-          <!-- <img [src]="'assets/icon/food-stuff-groups/'+item.group.toLowerCase()+'_placeholder.png'"/> -->
+          <p style="border: dashed 0.5px green">
+            {{foodGroups$ | async | json}}
+          </p>
           <ion-item>
-            <!-- <ion-label position="floating">Grupo</ion-label> -->
-            <ion-list>
-              <ion-item>
+            <ion-grid>
+              <ion-row>
+                <ion-label>Grupo</ion-label>
+              </ion-row>
+              <ion-row>
                 <ion-select
                   formControlName="group"
                   interface="popover"
@@ -34,21 +37,43 @@
                   (ionChange)="foodGroupsChange($event)"
                 >
                   <ion-select-option
+                    [value]="g"
                     *ngFor="let g of foodGroups$ | async"
-                    [value]="g.name"
                   >
                     {{g.name | foodStuffGroup}}
                   </ion-select-option>
                 </ion-select>
-              </ion-item>
-            </ion-list>
+              </ion-row>
+            </ion-grid>
           </ion-item>
         </div>
         <div>
-          <!-- <img [src]="'assets/icon/food-stuff-groups/'+item.group.toLowerCase()+'_placeholder.png'"/> -->
+          <p style="border: dashed 0.5px green">
+            {{foodExpirationTypes$ | async | json}}
+          </p>
           <ion-item>
-            <ion-label position="floating">Grupo</ion-label>
-            <ion-input type="text" clearInput [value]="item.group"></ion-input>
+            <ion-grid>
+              <ion-row>
+                <ion-label>Caducidad</ion-label>
+              </ion-row>
+              <ion-row>
+                <ion-select
+                  formControlName="expirationType"
+                  interface="popover"
+                  placeholder="Selecciona tipo de caducidad"
+                  [value]="item.expirationType"
+                  [compareWith]="foodExpirationTypesCompareWith"
+                  (ionChange)="foodExpirationTypeChange($event)"
+                >
+                  <ion-select-option
+                    [value]="et"
+                    *ngFor="let et of foodExpirationTypes$ | async"
+                  >
+                    {{et.name | foodStuffExpirationType}}
+                  </ion-select-option>
+                </ion-select>
+              </ion-row>
+            </ion-grid>
           </ion-item>
         </div>
       </form>
@@ -63,12 +88,13 @@
 </ion-content>
 
 <div>
-  <p>{{ getName | json }}</p>
+  {{ detailFoodForm.value | json }}
+  <!-- <p>{{ getName | json }}</p>
   <p>{{ getUnits | json }}</p>
   <p>{{ getGroup | json }}</p>
   <p>{{ getExpirationType | json }}</p>
   <p>{{ getExpirationDate | json }}</p>
-  <p>{{ getStoragedIn | json }}</p>
+  <p>{{ getStoragedIn | json }}</p> -->
 </div>
 
 <!--
